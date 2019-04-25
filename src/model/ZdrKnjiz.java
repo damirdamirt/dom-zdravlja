@@ -10,7 +10,7 @@ public class ZdrKnjiz {
 	
 	
 	public ZdrKnjiz() {
-		super();
+
 		this.broj = "";
 		this.datumIsteka = null;
 		this.katOsig = 0;
@@ -19,7 +19,7 @@ public class ZdrKnjiz {
 
 
 	public ZdrKnjiz(String broj, Date datumIsteka, int katOsig) {
-		super();
+
 		this.broj = broj;
 		this.datumIsteka = datumIsteka;
 		this.katOsig = katOsig;

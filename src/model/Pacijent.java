@@ -45,9 +45,18 @@ public class Pacijent extends Korisnik {
 
 	@Override
 	public String toString() {
-		return "Pacijent [izabLekar=" + izabLekar + ", knjiz=" + knjiz + ", ime=" + ime + ", prezime=" + prezime
-				+ ", jmbg=" + jmbg + ", brTel=" + brTel + ", uloga=" + uloga + ", adresa=" + adresa + ", korIme="
-				+ korIme + ", lozinka=" + lozinka + ", pol=" + pol + "]";
+		return "\nPacijent:" + 
+				"\nizabLekar: " + izabLekar + 
+				"\nknjiz: " + knjiz + 
+				"\nime: " + ime + 
+				"\nprezime: " + prezime + 
+				"\njmbg: " + jmbg + 
+				"\nbrTel: " + brTel + 
+				"\nuloga: " + uloga + 
+				"\nadresa: " + adresa + 
+				"\nkorIme: "+ korIme + 
+				"\nlozinka: " + lozinka + 
+				"\npol: " + pol;
 	}
 
 

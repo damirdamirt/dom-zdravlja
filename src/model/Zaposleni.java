@@ -44,12 +44,22 @@ public abstract class Zaposleni extends Korisnik {
 
 	@Override
 	public String toString() {
-		return "Zaposleni [plata=" + plata + ", sluzba=" + sluzba + ", ime=" + ime + ", prezime=" + prezime + ", jmbg="
-				+ jmbg + ", brTel=" + brTel + ", uloga=" + uloga + ", adresa=" + adresa + ", korIme=" + korIme
-				+ ", lozinka=" + lozinka + ", pol=" + pol + "]";
+		return "\nZaposleni:" +
+				"\nplata: " + plata + 
+				"\nsluzba: " + sluzba + 
+				"\nime: " + ime + 
+				"\nprezime: " + prezime + 
+				"\njmbg: "+ jmbg + 
+				"\nbrTel: " + brTel + 
+				"\nuloga: " + uloga + 
+				"\nadresa: " + adresa + 
+				"\nkorIme: " + korIme + 
+				"\nlozinka: " + lozinka + 
+				"\npol: " + pol;
 	}
 
 
+	
 	
 	
 	

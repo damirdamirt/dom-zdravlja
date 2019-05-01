@@ -1,5 +1,7 @@
 package model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ZdrKnjiz {
@@ -58,10 +60,11 @@ public class ZdrKnjiz {
 
 	@Override
 	public String toString() {
-		return "\nZdrKnjiz:" + 
-				"\nbroj: " + broj + 
-				"\ndatumIsteka: " + datumIsteka + 
-				"\nkatOsig: " + katOsig;
+		
+		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
+		return "\nbroj: " + broj + 
+				", datumIsteka: " + datum.format(datumIsteka) + 
+				", katOsig: " + katOsig;
 	}
 	
 	

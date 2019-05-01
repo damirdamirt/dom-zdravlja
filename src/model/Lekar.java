@@ -1,18 +1,33 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Lekar extends Zaposleni {
 	
 	private String spec;
+	private ArrayList<Pregled> pregledi;
 
 	public Lekar() {
 		super();
 		this.spec = "";
+		this.pregledi = new ArrayList<Pregled>();
+		
 	}
 
-	public Lekar(String spec, String ime, String prezime, String jmbg, String brTel, UlogaKor uloga, String adresa, String korIme,
-			String lozinka, Pol pol, double plata, Sluzba sluzba) {
-		super(plata, sluzba, ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, pol);
+	public Lekar(String ime, String prezime, String jmbg, String brTel, UlogaKor uloga, String adresa, String korIme,
+			String lozinka, Pol pol, double plata, Sluzba sluzba, String spec, ArrayList<Pregled> pregledi) {
+		super(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, pol, plata, sluzba);
 		this.spec = spec;
+		this.pregledi = pregledi;
+	}
+	
+	
+
+	public Lekar(String ime, String prezime, String jmbg, String brTel, UlogaKor uloga, String adresa, String korIme,
+			String lozinka, Pol pol, double plata, Sluzba sluzba, String spec) {
+		super(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, pol, plata, sluzba);
+		this.spec = spec;
+		this.pregledi = new ArrayList<Pregled>();
 	}
 
 	public String getSpec() {
@@ -23,9 +38,18 @@ public class Lekar extends Zaposleni {
 		this.spec = spec;
 	}
 
+	public ArrayList<Pregled> getPregledi() {
+		return pregledi;
+	}
+
+	public void setPregledi(ArrayList<Pregled> pregledi) {
+		this.pregledi = pregledi;
+	}
+
 	@Override
 	public String toString() {
-		return "\nLekar:" +
+		
+		String ispis = "\nLekar:" +
 				"\nspec: " + spec + 
 				"\nplata: " + plata + 
 				"\nsluzba: " + sluzba + 
@@ -37,12 +61,15 @@ public class Lekar extends Zaposleni {
 				"\nadresa: " + adresa + 
 				"\nkorIme: " + korIme + 
 				"\nlozinka: " + lozinka + 
-				"\npol: " + pol;
+				"\npol: " + pol +
+				"\npregledi: ";
+		if (pregledi.isEmpty())
+			ispis += "Nema pregleda";
+		for (Pregled pregled : pregledi) {
+			ispis +="\n" + pregled.toString();
+		}
+		return ispis;
 	}
 
 	
-	
-	
-	
-
 }

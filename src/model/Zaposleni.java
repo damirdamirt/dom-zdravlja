@@ -14,8 +14,8 @@ public abstract class Zaposleni extends Korisnik {
 	}
 
 
-	public Zaposleni(double plata, Sluzba sluzba, String ime, String prezime, String jmbg, String brTel, UlogaKor uloga, String adresa, String korIme,
-			String lozinka, Pol pol) {
+	public Zaposleni(String ime, String prezime, String jmbg, String brTel, UlogaKor uloga, String adresa, String korIme,
+			String lozinka, Pol pol, double plata, Sluzba sluzba) {
 		super(ime, prezime, jmbg, brTel, uloga,adresa, korIme, lozinka, pol);
 		this.plata = plata;
 		this.sluzba = sluzba;

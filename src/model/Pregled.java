@@ -1,5 +1,7 @@
 package model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Pregled {
@@ -96,10 +98,11 @@ public class Pregled {
 
 	@Override
 	public String toString() {
-		return "\nPregled:" + 
-				"\npacijent: " + pacijent + 
-				"\nlekar: " + lekar + 
-				"\ntermin: " + termin + 
+		
+		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
+		return "pacijent: " + pacijent.getIme() + " " + pacijent.getPrezime() + 
+				"\nlekar: " + lekar.getIme() + " " + lekar.getPrezime() + 
+				"\ntermin: " + datum.format(termin) + 
 				"\nsoba: " + soba +
 				"\nopis: " + opis + 
 				"\nstatus: " + status;

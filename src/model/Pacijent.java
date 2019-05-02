@@ -18,8 +18,8 @@ public class Pacijent extends Korisnik {
 	}
 
 
-	public Pacijent(Lekar izabLekar, ArrayList<Pregled> pregledi, ZdrKnjiz knjiz, String ime, String prezime, String jmbg, String brTel, UlogaKor uloga, String adresa, String korIme,
-			String lozinka, Pol pol) {
+	public Pacijent( String ime, String prezime, String jmbg, String brTel, UlogaKor uloga, String adresa, String korIme,
+			String lozinka, Pol pol, Lekar izabLekar, ArrayList<Pregled> pregledi, ZdrKnjiz knjiz) {
 		super(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, pol);
 		this.izabLekar = izabLekar;
 		this.knjiz = knjiz;

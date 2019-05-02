@@ -8,21 +8,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import model.MedSestra;
+import model.Lekar;
 import model.Pol;
 import model.Sluzba;
 import model.UlogaKor;
 
-public class MedSestraDao {
+public class LekarDao {
 	
-	private ArrayList<MedSestra> sestre = new ArrayList<MedSestra>();
+	private ArrayList<Lekar> lekari = new ArrayList<Lekar>();
 	
-	public void ucitajSestre() {
+	public void ucitajLekare() {
 		
-		sestre.clear();
+		lekari.clear();
 		
 		try {
-			File file = new File ("src/fajlovi/sestre.txt");
+			File file = new File("src/fajlovi/lekari.txt");
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String linija;
 			while ((linija = reader.readLine()) !=null) {
@@ -41,39 +41,52 @@ public class MedSestraDao {
 				double plata = Double.parseDouble(podaci[9]);
 				String sluzba = podaci[10];
 				Sluzba s = Sluzba.valueOf(sluzba);
-				MedSestra sestra = new MedSestra(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, p, plata, s);
-				sestre.add(sestra);
-				System.out.println(sestre);
+				String spec = podaci[11];
+				Lekar lekar = new Lekar(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, p, plata, s, spec);
+				lekari.add(lekar);
+				
 			}
 			reader.close();
 			
 		}catch (IOException e) {
-			System.out.println("Greska prilikom ucitavanja fajla");
+			System.out.println("Greska prilikom ucitavanja Fajla.");
 			
 			e.printStackTrace();
 		}
-
 	}
 	
-	public void upisiMedSestru(MedSestra ms) {
-		
+	
+	public void upisiLekara(Lekar lek) {
 		try {
-			File file = new File("src/fajlovi/sestre.txt");
+			File file = new File("src/fajlovi/lekari.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-			String linija = ms.getIme() + "|" + ms.getPrezime() + "|" + ms.getJmbg() + "|" + ms.getBrTel() +
-					"|" + ms.getUloga().toString() + "|" + ms.getAdresa() + "|" + ms.getKorIme() + "|" + ms.getLozinka() + "|" + 
-					 ms.getPol().toString() + "|" + ms.getPlata() + "|" + ms.getSluzba().toString();
+			String linija = lek.getIme() + "|" + lek.getPrezime() + "|" + lek.getJmbg() + "|" + lek.getBrTel() +
+							"|" + lek.getUloga().toString() + "|" + lek.getAdresa() + "|" + lek.getKorIme() +
+							"|" + lek.getLozinka() + "|" + lek.getPol().toString() + "|" + lek.getPlata() +
+							"|" + lek.getSluzba().toString() + "|" + lek.getSpec();
 			writer.write(linija);
 			writer.close();
-		
-		
-		
+			
 		} catch (IOException e) {
-			System.out.println("Greska prilikom upisa fajla");
+			System.out.println("Greska prilikom upisa lekara");
 			e.printStackTrace();
 		}
+	}
+	
+	public Lekar nadjiLekaraPoKorImenu(String korIme) {
 		
+		ucitajLekare();
+		
+		Lekar trazeniLekar = null; 
+		for (Lekar lekar : lekari) {
+			if (korIme.equals(lekar.getKorIme())) {
+				trazeniLekar = lekar;
+				break;
+			}
+		}
+		return trazeniLekar;
 		
 	}
+	
 
 }

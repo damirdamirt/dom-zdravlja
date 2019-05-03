@@ -10,12 +10,23 @@ import java.util.ArrayList;
 
 import model.Lekar;
 import model.Pol;
+import model.Pregled;
 import model.Sluzba;
 import model.UlogaKor;
 
 public class LekarDao {
 	
 	private ArrayList<Lekar> lekari = new ArrayList<Lekar>();
+	
+	public ArrayList<Lekar> dajSveLekareSaPregledima() {
+		ucitajLekare();
+		for (Lekar lekar : lekari) {
+			PregledDao pregDao = new PregledDao();
+			ArrayList<Pregled> pregledi = pregDao.nadjiPregledePoKorImenuLekara(lekar.getKorIme());
+			lekar.setPregledi(pregledi);
+		}
+		return lekari;	
+	}
 	
 	public void ucitajLekare() {
 		
@@ -41,8 +52,9 @@ public class LekarDao {
 				double plata = Double.parseDouble(podaci[9]);
 				String sluzba = podaci[10];
 				Sluzba s = Sluzba.valueOf(sluzba);
+				ArrayList<Pregled> pregledi = new ArrayList<Pregled>();
 				String spec = podaci[11];
-				Lekar lekar = new Lekar(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, p, plata, s, spec);
+				Lekar lekar = new Lekar(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, p, plata, s, spec, pregledi);
 				lekari.add(lekar);
 				
 			}
@@ -59,11 +71,11 @@ public class LekarDao {
 	public void upisiLekara(Lekar lek) {
 		try {
 			File file = new File("src/fajlovi/lekari.txt");
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 			String linija = lek.getIme() + "|" + lek.getPrezime() + "|" + lek.getJmbg() + "|" + lek.getBrTel() +
 							"|" + lek.getUloga().toString() + "|" + lek.getAdresa() + "|" + lek.getKorIme() +
 							"|" + lek.getLozinka() + "|" + lek.getPol().toString() + "|" + lek.getPlata() +
-							"|" + lek.getSluzba().toString() + "|" + lek.getSpec();
+							"|" + lek.getSluzba().toString() + "|" + lek.getSpec() + "\n";
 			writer.write(linija);
 			writer.close();
 			
@@ -86,6 +98,10 @@ public class LekarDao {
 		}
 		return trazeniLekar;
 		
+	}
+	
+	public ArrayList<Lekar> getLekari() {
+		return lekari;
 	}
 	
 

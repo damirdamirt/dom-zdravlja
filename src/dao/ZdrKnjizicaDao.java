@@ -35,8 +35,6 @@ public class ZdrKnjizicaDao {
 				int katOsig = Integer.parseInt(podaci[2]);
 				ZdrKnjiz knjizica = new ZdrKnjiz(broj, datumIsteka, katOsig);
 				knjizice.add(knjizica);
-				System.out.println(knjizice);
-				
 				
 			}
 			reader.close();
@@ -55,9 +53,9 @@ public class ZdrKnjizicaDao {
 		
 		try {
 			File file = new File("src/fajlovi/knjizice.txt");
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 			String datum = d.format(knjiz.getDatumIsteka());
-			String linija = knjiz.getBroj() + "|" + datum + "|" + knjiz.getKatOsig();
+			String linija = knjiz.getBroj() + "|" + datum + "|" + knjiz.getKatOsig() + "\n";
 			writer.write(linija);
 			writer.close();
 			
@@ -83,4 +81,7 @@ public class ZdrKnjizicaDao {
 	}
 	
 
+	public ArrayList<ZdrKnjiz> getKnjizice(){
+		return knjizice;
+	}
 }

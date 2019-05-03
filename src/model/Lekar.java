@@ -21,14 +21,6 @@ public class Lekar extends Zaposleni {
 		this.pregledi = pregledi;
 	}
 	
-	
-
-	public Lekar(String ime, String prezime, String jmbg, String brTel, UlogaKor uloga, String adresa, String korIme,
-			String lozinka, Pol pol, double plata, Sluzba sluzba, String spec) {
-		super(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, pol, plata, sluzba);
-		this.spec = spec;
-		this.pregledi = new ArrayList<Pregled>();
-	}
 
 	public String getSpec() {
 		return spec;
@@ -66,7 +58,7 @@ public class Lekar extends Zaposleni {
 		if (pregledi.isEmpty())
 			ispis += "Nema pregleda";
 		for (Pregled pregled : pregledi) {
-			ispis +="\n" + pregled.toString();
+			ispis +="\n\n\t" + pregled.toString();
 		}
 		return ispis;
 	}

@@ -43,7 +43,6 @@ public class MedSestraDao {
 				Sluzba s = Sluzba.valueOf(sluzba);
 				MedSestra sestra = new MedSestra(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, p, plata, s);
 				sestre.add(sestra);
-				System.out.println(sestre);
 			}
 			reader.close();
 			
@@ -59,10 +58,10 @@ public class MedSestraDao {
 		
 		try {
 			File file = new File("src/fajlovi/sestre.txt");
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 			String linija = ms.getIme() + "|" + ms.getPrezime() + "|" + ms.getJmbg() + "|" + ms.getBrTel() +
 					"|" + ms.getUloga().toString() + "|" + ms.getAdresa() + "|" + ms.getKorIme() + "|" + ms.getLozinka() + "|" + 
-					 ms.getPol().toString() + "|" + ms.getPlata() + "|" + ms.getSluzba().toString();
+					 ms.getPol().toString() + "|" + ms.getPlata() + "|" + ms.getSluzba().toString() + "\n";
 			writer.write(linija);
 			writer.close();
 		
@@ -74,6 +73,10 @@ public class MedSestraDao {
 		}
 		
 		
+	}
+	
+	public ArrayList<MedSestra> getSestre() {
+		return sestre;
 	}
 
 }

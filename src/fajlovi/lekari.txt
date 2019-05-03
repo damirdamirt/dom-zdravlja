@@ -1,1 +1,3 @@
-Pera|Peric|131313|3131|LEKAR|Zmaj Jovina|jsajsaj|blabla|MUSKI|300000.0|SLUZBA_OP_MED|Neurohirurg
+Jova|Lalic|22333229990011|063/8292679|LEKAR|Jove Jove 3b|docadoca|primammito|MUSKI|120000.0|SLUZBA_OP_MED|Stomatolog
+Jova|Lalic|22333229990011|063/8292679|LEKAR|Jove Jove 3b|docadoca|primammito|MUSKI|120000.0|SLUZBA_OP_MED|Stomatolog
+Jova|Lalic|22333229990011|063/8292679|LEKAR|Jove Jove 3b|docadoca|primammito|MUSKI|120000.0|SLUZBA_OP_MED|Stomatolog

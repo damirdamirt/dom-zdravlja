@@ -1,5 +1,9 @@
 package model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Racun {
 	
 	private Pregled pregled;
@@ -42,8 +46,9 @@ public class Racun {
 
 	@Override
 	public String toString() {
+		DateFormat date = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		return "\nRacun:" +
-				"\npregled: " + pregled + 
+				"\npregled: " + date.format(pregled.getTermin()) +
 				"\niznos: " + iznos;
 	}
 	

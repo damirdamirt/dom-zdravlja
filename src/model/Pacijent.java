@@ -61,28 +61,24 @@ public class Pacijent extends Korisnik {
 	@Override
 	public String toString() {
 	
-		String ispis = "\nPacijent:" + 
-				"\nizabLekar: " + izabLekar.getIme() + " " + izabLekar.getPrezime() + 
-				"\nknjizica: " + knjiz + 
-				"\nime: " + ime + 
-				"\nprezime: " + prezime + 
-				"\njmbg: " + jmbg + 
-				"\nbrTel: " + brTel + 
-				"\nuloga: " + uloga + 
-				"\nadresa: " + adresa + 
-				"\nkorIme: "+ korIme + 
-				"\nlozinka: " + lozinka + 
-				"\npol: " + pol +
-				"\npregledi: ";
-		
-		if (pregledi.isEmpty()) {
-			System.out.println("Nema pregleda");
-		}
-		for (Pregled pregled : pregledi) {
-			ispis += "\n" + pregled.toString(); 
-		}
-		
-		return ispis;
+		String ispis = "\nIme i prezime: " + ime + " " + prezime +
+						"\nJMBG broj: " + jmbg +
+						"\nBroj Telefona: " + brTel +
+						"\nUloga korisnika: " + uloga +
+						"\nAdresa prebivalista: " + adresa +
+						"\nVase korisnicko ime: " + korIme +
+						"\nVasa lozinka: " + lozinka +
+						"\nPol: " + pol + 
+						"\nIzabrani lekar: " + izabLekar.getIme() + " " + izabLekar.getPrezime() +
+						"\nPodaci knjizice: " + knjiz + 
+						"\nLista pregleda: "; 
+					if (pregledi.isEmpty()) {
+						ispis += "Nema pregleda";
+					}
+					for (Pregled pregled : pregledi) {
+						ispis += "\n" + pregled.toString(); 
+					}
+						return ispis;
 	
 }
 

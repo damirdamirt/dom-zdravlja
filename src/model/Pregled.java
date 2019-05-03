@@ -3,9 +3,11 @@ package model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class Pregled {
 	
+	private String id;
 	private Pacijent pacijent;
 	private Lekar lekar;
 	private Date termin;  
@@ -94,13 +96,24 @@ public class Pregled {
 	public void setStatus(StatusPreg status) {
 		this.status = status;
 	}
+	
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 
 	@Override
 	public String toString() {
 		
 		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
-		return "pacijent: " + pacijent.getIme() + " " + pacijent.getPrezime() + 
+		return "pacijent: " + "\nid: " + id + " " + pacijent.getIme() + " " + pacijent.getPrezime() + 
 				"\nlekar: " + lekar.getIme() + " " + lekar.getPrezime() + 
 				"\ntermin: " + datum.format(termin) + 
 				"\nsoba: " + soba +

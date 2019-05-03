@@ -19,6 +19,16 @@ public class PacijentDao {
 	
 	private ArrayList<Pacijent> pacijenti = new ArrayList<Pacijent>();
 	
+	public ArrayList<Pacijent> dajSvePacijenteSaPregledima() {
+		ucitajPacijente();
+		for (Pacijent pacijent : pacijenti) {
+			PregledDao pregDao = new PregledDao();
+			ArrayList<Pregled> pregledi = pregDao.nadjiPregledePoKorImenuLekara(pacijent.getKorIme());
+			pacijent.setPregledi(pregledi);
+		}
+		return pacijenti;
+	}
+	
 	public void ucitajPacijente() {
 		
 		pacijenti.clear();
@@ -61,11 +71,11 @@ public class PacijentDao {
 	public void upisiPacijenta(Pacijent pac) {
 		try {
 			File file = new File("src/fajlovi/pacijenti.txt");
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 			String linija = pac.getIme() + "|" + pac.getPrezime() + "|" + pac.getJmbg() + "|" + pac.getBrTel() + "|" +
 							pac.getUloga().toString() + "|" + pac.getAdresa() + "|" + pac.getKorIme() + "|" +
 							pac.getLozinka() + "|" + pac.getPol().toString() + "|" + pac.getIzabLekar().getKorIme() + "|" +
-							pac.getKnjiz().getBroj();
+							pac.getKnjiz().getBroj() + "\n";
 			writer.write(linija);
 			writer.close();
 		
@@ -87,5 +97,8 @@ public class PacijentDao {
 		}
 		return trazeniPac;
 		
+	}
+	public ArrayList<Pacijent> getPacijenti() {
+		return pacijenti;
 	}
 }

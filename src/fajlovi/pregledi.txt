@@ -1,3 +1,1 @@
-3809c7e6-7623-4e38-8b57-3d77237025ec|maremare|docadoca|23.09.1988 01:20|5a|Dolazak na lobotomiju|ZAKAZAN
-e79f0c00-8f9b-4848-b737-9ab946965036|maremare|docadoca|23.09.1988 01:20|5a|Dolazak na lobotomiju|ZAKAZAN
-7d74e4f7-a805-4daa-91ef-c51279440e0b|maremare|docadoca|23.09.1988 01:20|5a|Dolazak na lobotomiju|ZAKAZAN
+27a3543c-96d1-4824-89b8-0783245a57af|NikolaG|MilosJ|13.05.2020 10:30|5a|Bolovi u levom kolenu|ZATRAZEN

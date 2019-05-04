@@ -113,7 +113,7 @@ public class Pregled {
 	public String toString() {
 		
 		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
-		return "pacijent: " + "\nid: " + id + " " + pacijent.getIme() + " " + pacijent.getPrezime() + 
+		return "pacijent: " + "id: " + id + " " + pacijent.getIme() + " " + pacijent.getPrezime() + 
 				"\nlekar: " + lekar.getIme() + " " + lekar.getPrezime() + 
 				"\ntermin: " + datum.format(termin) + 
 				"\nsoba: " + soba +

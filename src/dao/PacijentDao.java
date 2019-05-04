@@ -23,7 +23,7 @@ public class PacijentDao {
 		ucitajPacijente();
 		for (Pacijent pacijent : pacijenti) {
 			PregledDao pregDao = new PregledDao();
-			ArrayList<Pregled> pregledi = pregDao.nadjiPregledePoKorImenuLekara(pacijent.getKorIme());
+			ArrayList<Pregled> pregledi = pregDao.nadjiPregledePoKorImenuPacijenta(pacijent.getKorIme());
 			pacijent.setPregledi(pregledi);
 		}
 		return pacijenti;

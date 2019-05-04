@@ -41,7 +41,7 @@ public class Lekar extends Zaposleni {
 	@Override
 	public String toString() {
 		
-		String ispis = "\nLekar:" +
+		String ispis = "Lekar:" +
 				"\nspec: " + spec + 
 				"\nplata: " + plata + 
 				"\nsluzba: " + sluzba + 
@@ -54,11 +54,11 @@ public class Lekar extends Zaposleni {
 				"\nkorIme: " + korIme + 
 				"\nlozinka: " + lozinka + 
 				"\npol: " + pol +
-				"\npregledi: ";
+				"\nPregledi: ";
 		if (pregledi.isEmpty())
 			ispis += "Nema pregleda";
 		for (Pregled pregled : pregledi) {
-			ispis +="\n\n\t" + pregled.toString();
+			ispis +="\n" + pregled.toString() + "\n";
 		}
 		return ispis;
 	}

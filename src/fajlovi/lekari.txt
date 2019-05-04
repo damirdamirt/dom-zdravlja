@@ -1,3 +1,1 @@
-Jova|Lalic|22333229990011|063/8292679|LEKAR|Jove Jove 3b|docadoca|primammito|MUSKI|120000.0|SLUZBA_OP_MED|Stomatolog
-Jova|Lalic|22333229990011|063/8292679|LEKAR|Jove Jove 3b|docadoca|primammito|MUSKI|120000.0|SLUZBA_OP_MED|Stomatolog
-Jova|Lalic|22333229990011|063/8292679|LEKAR|Jove Jove 3b|docadoca|primammito|MUSKI|120000.0|SLUZBA_OP_MED|Stomatolog
+Milos|Jovanovic|230992000452354|064/2342456|LEKAR|Zmaj Jovina 46|MilosJ|MikiMiki|MUSKI|90000.0|SLUZBA_OP_MED|Pedijatar

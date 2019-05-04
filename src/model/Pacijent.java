@@ -61,7 +61,7 @@ public class Pacijent extends Korisnik {
 	@Override
 	public String toString() {
 	
-		String ispis = "\nIme i prezime: " + ime + " " + prezime +
+		String ispis = "Pacijent: \nIme i prezime: " + ime + " " + prezime +
 						"\nJMBG broj: " + jmbg +
 						"\nBroj Telefona: " + brTel +
 						"\nUloga korisnika: " + uloga +
@@ -71,12 +71,12 @@ public class Pacijent extends Korisnik {
 						"\nPol: " + pol + 
 						"\nIzabrani lekar: " + izabLekar.getIme() + " " + izabLekar.getPrezime() +
 						"\nPodaci knjizice: " + knjiz + 
-						"\nLista pregleda: "; 
+						"\n\nLista pregleda: "; 
 					if (pregledi.isEmpty()) {
 						ispis += "Nema pregleda";
 					}
 					for (Pregled pregled : pregledi) {
-						ispis += "\n" + pregled.toString(); 
+						ispis += "\n" + pregled.toString() + "\n"; 
 					}
 						return ispis;
 	

@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import model.Lekar;
 import model.MedSestra;
 import model.Pol;
 import model.Sluzba;
@@ -71,12 +72,53 @@ public class MedSestraDao {
 			System.out.println("Greska prilikom upisa fajla");
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
+	public void upisiMedSestre(ArrayList<MedSestra> sestre) {
+		try {
+			File file = new File("src/fajlovi/sestre.txt");
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+			for (MedSestra ms : sestre) {
+				String linija = ms.getIme() + "|" + ms.getPrezime() + "|" + ms.getJmbg() + "|" + ms.getBrTel() +
+						"|" + ms.getUloga().toString() + "|" + ms.getAdresa() + "|" + ms.getKorIme() + "|" + ms.getLozinka() + "|" + 
+						 ms.getPol().toString() + "|" + ms.getPlata() + "|" + ms.getSluzba().toString() + "\n";
+				writer.write(linija);
+			}
+			writer.close();
+			
+		} catch (IOException e) {
+			System.out.println("Greska prilikom upisa fajla");
+			e.printStackTrace();
+		}
+	}
+			
 	public ArrayList<MedSestra> getSestre() {
 		return sestre;
 	}
-
+	
+	public void izmeniMedSestru(MedSestra sestra) {
+		ucitajSestre();
+		ArrayList<MedSestra> sestreZaFajl = new ArrayList<MedSestra>();
+		for (MedSestra postojecaSestra : sestre) {
+			if (postojecaSestra.getKorIme().equals(sestra.getKorIme())) {
+				sestreZaFajl.add(sestra);
+			}else {
+				sestreZaFajl.add(postojecaSestra);
+			}
+		}
+		upisiMedSestre(sestreZaFajl);
+	}
+	
+	public void izbrisiMedSestru(MedSestra obrisanaSestra) {
+		ucitajSestre();
+		ArrayList<MedSestra> preostaleSestre = new ArrayList<MedSestra>();
+		for (MedSestra sestra : sestre) {
+			if(obrisanaSestra.getKorIme().equals(sestra.getKorIme())) {
+				continue;
+			}else {
+				preostaleSestre.add(sestra);
+			}
+		}
+		upisiMedSestre(preostaleSestre);
+	}
 }

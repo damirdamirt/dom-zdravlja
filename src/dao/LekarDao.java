@@ -20,12 +20,16 @@ public class LekarDao {
 	
 	public ArrayList<Lekar> dajSveLekareSaPregledima() {
 		ucitajLekare();
+		ArrayList<Lekar> lekariZaPrikaz = new ArrayList<Lekar>();
+		PregledDao pregDao = new PregledDao();
 		for (Lekar lekar : lekari) {
-			PregledDao pregDao = new PregledDao();
-			ArrayList<Pregled> pregledi = pregDao.nadjiPregledePoKorImenuLekara(lekar.getKorIme());
-			lekar.setPregledi(pregledi);
+			if (lekar.isObrisan() == false) {
+				ArrayList<Pregled> pregledi = pregDao.nadjiPregledePoKorImenuLekara(lekar.getKorIme());
+				lekar.setPregledi(pregledi);
+				lekariZaPrikaz.add(lekar);
+			}
 		}
-		return lekari;	
+		return lekariZaPrikaz;	
 	}
 	
 	public void ucitajLekare() {
@@ -54,7 +58,10 @@ public class LekarDao {
 				Sluzba s = Sluzba.valueOf(sluzba);
 				ArrayList<Pregled> pregledi = new ArrayList<Pregled>();
 				String spec = podaci[11];
-				Lekar lekar = new Lekar(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, p, plata, s, spec, pregledi);
+				String obr = podaci[12];
+				boolean obrisan = Boolean.valueOf(obr);
+				Lekar lekar = new Lekar(ime, prezime, jmbg, brTel, uloga, adresa, korIme, 
+										lozinka, p, plata, s, spec, pregledi, obrisan);
 				lekari.add(lekar);
 				
 			}
@@ -72,10 +79,12 @@ public class LekarDao {
 		try {
 			File file = new File("src/fajlovi/lekari.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+			String funkcija = String.valueOf(lek.isObrisan());
 			String linija = lek.getIme() + "|" + lek.getPrezime() + "|" + lek.getJmbg() + "|" + lek.getBrTel() +
 							"|" + lek.getUloga().toString() + "|" + lek.getAdresa() + "|" + lek.getKorIme() +
 							"|" + lek.getLozinka() + "|" + lek.getPol().toString() + "|" + lek.getPlata() +
-							"|" + lek.getSluzba().toString() + "|" + lek.getSpec() + "\n";
+							"|" + lek.getSluzba().toString() + "|" + lek.getSpec() + 
+							"|" + funkcija + "\n";
 			writer.write(linija);
 			writer.close();
 			
@@ -85,8 +94,29 @@ public class LekarDao {
 		}
 	}
 	
+	public void upisiLekare(ArrayList<Lekar> lekari) {
+		try {
+			File file = new File("src/fajlovi/lekari.txt");
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+			for (Lekar lek : lekari) {
+				String funkcija = String.valueOf(lek.isObrisan());
+				String linija = lek.getIme() + "|" + lek.getPrezime() + "|" + lek.getJmbg() + 
+						"|" + lek.getBrTel() + "|" + lek.getUloga().toString() + 
+						"|" + lek.getAdresa() + "|" + lek.getKorIme() + "|" + lek.getLozinka() + 
+						"|" + lek.getPol().toString() + "|" + lek.getPlata() +
+						"|" + lek.getSluzba().toString() + "|" + lek.getSpec() + 
+						"|" + funkcija + "\n";
+				writer.write(linija);
+			}
+			writer.close();
+			
+		} catch (IOException e) {
+			System.out.println("Greska prilikom upisa lekara");
+			e.printStackTrace();
+		}
+	}
+	
 	public Lekar nadjiLekaraPoKorImenu(String korIme) {
-		
 		ucitajLekare();
 		
 		Lekar trazeniLekar = null; 
@@ -97,12 +127,33 @@ public class LekarDao {
 			}
 		}
 		return trazeniLekar;
-		
 	}
 	
 	public ArrayList<Lekar> getLekari() {
 		return lekari;
 	}
+
+	public void izmeniLekara(Lekar lekar) {
+		ucitajLekare();
+		ArrayList<Lekar> lekariZaFajl = new ArrayList<Lekar>();
+		for (Lekar postojeciLekar : lekari) {
+			if(postojeciLekar.getKorIme().equals(lekar.getKorIme())) {
+				lekariZaFajl.add(lekar);
+			}else {
+				lekariZaFajl.add(postojeciLekar);
+			}
+		}
+		upisiLekare(lekariZaFajl);
+	}
 	
+	public void izbrisiLekara(Lekar lekar) {
+		ucitajLekare();
+		for (Lekar obrisaniLekar : lekari) {
+			if(obrisaniLekar.getKorIme().equals(lekar.getKorIme())) {
+				obrisaniLekar.setObrisan(true);
+			}
+		}
+		upisiLekare(lekari);
+	}
 
 }

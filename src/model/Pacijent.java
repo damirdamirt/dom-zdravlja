@@ -7,6 +7,7 @@ public class Pacijent extends Korisnik {
 	private Lekar izabLekar;
 	private ZdrKnjiz knjiz;
 	private ArrayList<Pregled> pregledi;
+	private boolean obrisan;
 	
 	
 	public Pacijent() {
@@ -14,16 +15,18 @@ public class Pacijent extends Korisnik {
 		this.izabLekar = null;
 		this.knjiz = null;
 		this.pregledi = new ArrayList<Pregled>();
+		this.obrisan = false;
 		
 	}
 
 
 	public Pacijent( String ime, String prezime, String jmbg, String brTel, UlogaKor uloga, String adresa, String korIme,
-			String lozinka, Pol pol, Lekar izabLekar, ArrayList<Pregled> pregledi, ZdrKnjiz knjiz) {
+			String lozinka, Pol pol, Lekar izabLekar, ArrayList<Pregled> pregledi, ZdrKnjiz knjiz, boolean obrisan) {
 		super(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, pol);
 		this.izabLekar = izabLekar;
 		this.knjiz = knjiz;
 		this.pregledi = pregledi;
+		this.obrisan = obrisan;
 		
 	}
 
@@ -56,10 +59,28 @@ public class Pacijent extends Korisnik {
 	public void setPregledi(ArrayList<Pregled> pregledi) {
 		this.pregledi = pregledi;
 	}
+	
+	
+
+
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
+	}
 
 
 	@Override
 	public String toString() {
+		String funkcijaPacijenta;
+		if(this.obrisan == true) {
+			funkcijaPacijenta = "Da";
+		}else {
+			funkcijaPacijenta = "Ne";
+		}
 	
 		String ispis = "Pacijent: \nIme i prezime: " + ime + " " + prezime +
 						"\nJMBG broj: " + jmbg +
@@ -70,7 +91,8 @@ public class Pacijent extends Korisnik {
 						"\nVasa lozinka: " + lozinka +
 						"\nPol: " + pol + 
 						"\nIzabrani lekar: " + izabLekar.getIme() + " " + izabLekar.getPrezime() +
-						"\nPodaci knjizice: " + knjiz + 
+						"\nPodaci knjizice: " + knjiz +
+						"\nObrisan: " + funkcijaPacijenta +
 						"\n\nLista pregleda: "; 
 					if (pregledi.isEmpty()) {
 						ispis += "Nema pregleda";
@@ -79,9 +101,5 @@ public class Pacijent extends Korisnik {
 						ispis += "\n" + pregled.toString() + "\n"; 
 					}
 						return ispis;
-	
-}
-
-
-	
+	}
 }

@@ -21,12 +21,16 @@ public class PacijentDao {
 	
 	public ArrayList<Pacijent> dajSvePacijenteSaPregledima() {
 		ucitajPacijente();
+		ArrayList<Pacijent> pacijentiZaPrikaz = new ArrayList<Pacijent>();
+		PregledDao pregDao = new PregledDao();
 		for (Pacijent pacijent : pacijenti) {
-			PregledDao pregDao = new PregledDao();
-			ArrayList<Pregled> pregledi = pregDao.nadjiPregledePoKorImenuPacijenta(pacijent.getKorIme());
-			pacijent.setPregledi(pregledi);
+			if (pacijent.isObrisan() == false) {
+				ArrayList<Pregled> pregledi = pregDao.nadjiPregledePoKorImenuPacijenta(pacijent.getKorIme());
+				pacijent.setPregledi(pregledi);
+				pacijentiZaPrikaz.add(pacijent);
+			}
 		}
-		return pacijenti;
+		return pacijentiZaPrikaz;
 	}
 	
 	public void ucitajPacijente() {
@@ -54,10 +58,12 @@ public class PacijentDao {
 				LekarDao lek = new LekarDao();
 				Lekar lekar = lek.nadjiLekaraPoKorImenu(korImeLekara);
 				String brZdrKnj = podaci[10];
+				String obris = podaci[11];
+				boolean obrisan = Boolean.valueOf(obris);
 				ZdrKnjizicaDao knj = new ZdrKnjizicaDao();
 				ZdrKnjiz knjiz = knj.nadjiZdrKnjPoBroju(brZdrKnj);
-				Pacijent pacijent = new Pacijent(ime, prezime, jmbg, brTel, ul, adresa, korIme, lozinka, p, lekar, 
-												new ArrayList<Pregled>(), knjiz);
+				Pacijent pacijent = new Pacijent(ime, prezime, jmbg, brTel, ul, adresa, korIme, 
+												lozinka, p, lekar, new ArrayList<Pregled>(), knjiz, obrisan);
 				pacijenti.add(pacijent);
 			}
 			reader.close();
@@ -72,10 +78,11 @@ public class PacijentDao {
 		try {
 			File file = new File("src/fajlovi/pacijenti.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+			String funkcija = String.valueOf(pac.isObrisan());
 			String linija = pac.getIme() + "|" + pac.getPrezime() + "|" + pac.getJmbg() + "|" + pac.getBrTel() + "|" +
 							pac.getUloga().toString() + "|" + pac.getAdresa() + "|" + pac.getKorIme() + "|" +
 							pac.getLozinka() + "|" + pac.getPol().toString() + "|" + pac.getIzabLekar().getKorIme() + "|" +
-							pac.getKnjiz().getBroj() + "\n";
+							pac.getKnjiz().getBroj() + "|" + funkcija + "\n";
 			writer.write(linija);
 			writer.close();
 		
@@ -85,9 +92,28 @@ public class PacijentDao {
 		}
 	}
 	
+	public void upisiPacijente(ArrayList<Pacijent> pacijenti) {
+		try {
+			File file = new File("src/fajlovi/pacijenti.txt");
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+			for (Pacijent pac : pacijenti) {
+				String funkcija = String.valueOf(pac.isObrisan());
+				String linija = pac.getIme() + "|" + pac.getPrezime() + "|" + 
+								pac.getJmbg() + "|" + pac.getBrTel() + "|" + pac.getUloga().toString() + "|" + 
+								pac.getAdresa() + "|" + pac.getKorIme() + "|" + pac.getLozinka() + "|" + 
+								pac.getPol().toString() + "|" + pac.getIzabLekar().getKorIme() + "|" +
+								pac.getKnjiz().getBroj() + "|" + funkcija + "\n";
+				writer.write(linija);
+			}
+			writer.close();
+		
+		} catch (IOException e) {
+			System.out.println("Greska prilikom upisa pacijenta");
+			e.printStackTrace();
+		}
+	}
 	public Pacijent nadjiPacPoKorImenu(String korIme) {
 		ucitajPacijente();
-		
 		Pacijent trazeniPac = null;
 		for (Pacijent pacijent : pacijenti) {
 			if (korIme.equals(pacijent.getKorIme())) {
@@ -101,4 +127,28 @@ public class PacijentDao {
 	public ArrayList<Pacijent> getPacijenti() {
 		return pacijenti;
 	}
+	
+	public void izmeniPacijenta(Pacijent pacijent) {
+		ucitajPacijente();
+		ArrayList<Pacijent> pacijentiZaFajl = new ArrayList<Pacijent>();
+		for (Pacijent postojeciPacijent : pacijenti) {
+			if(postojeciPacijent.getKorIme().equals(pacijent.getKorIme())) {
+				pacijentiZaFajl.add(pacijent);
+			}else {
+				pacijentiZaFajl.add(postojeciPacijent);
+			}
+		}
+		upisiPacijente(pacijentiZaFajl);
+		}
+	public void izbrisiPacijenta(Pacijent pacijent) {
+		ucitajPacijente();
+		for(Pacijent obrisaniPacijent : pacijenti) {
+			if(obrisaniPacijent.getKorIme().equals(pacijent.getKorIme())) {
+				obrisaniPacijent.setObrisan(true);
+			}
+		}
+		upisiPacijente(pacijenti);
+	}
 }
+
+	

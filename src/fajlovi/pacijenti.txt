@@ -1,1 +1,4 @@
-Nikola|Grgic|25099884476532|061/2323681|PACIJENT|Sutjeska 15|NikolaG|nikonikola|MUSKI|MilosJ|10
+Maja|Nikolic|2752293224466|064/6465321|PACIJENT|Fruskogorska 15|majamajce|makimaki|ZENSKI|MilosJ|5|true
+Nikola|Grgic|25099884476532|061/2323681|PACIJENT|Fruskogorska 15|NikolaG|nikonikola|MUSKI|MilosJ|10|true
+Maja|Nikolic|2752293224466|064/6465321|PACIJENT|Stevana Mokranjca 3|majamajce|makimaki|ZENSKI|MilosJ|5|false
+Nikola|Grgic|25099884476532|061/2323681|PACIJENT|Fruskogorska 15|NikolaG|nikonikola|MUSKI|MilosJ|10|true

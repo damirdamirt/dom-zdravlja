@@ -1,1 +1,4 @@
-27a3543c-96d1-4824-89b8-0783245a57af|NikolaG|MilosJ|13.05.2020 10:30|5a|Bolovi u levom kolenu|ZATRAZEN
+a7cc13f8-e697-4612-a8fd-9c24b7c50972|NikolaG|MilosJ|13.05.2020 10:30|5a|Trne leva ruka|ZATRAZEN|true
+41574a5f-cd3e-4182-a41a-7e12f7e81236|majamajce|ivancis|13.05.2020 10:30|10b|Cesta vrtoglavica|ZATRAZEN|false
+15ca44d1-8c5c-413d-b6cd-453762650925|NikolaG|MilosJ|13.05.2020 10:30|5a|Bolovi u levom kolenu|ZATRAZEN|false
+cc44c7e0-3222-46a4-9b88-aa996e10c1fe|majamajce|ivancis|13.05.2020 10:30|10b|Cesta vrtoglavica|ZATRAZEN|false

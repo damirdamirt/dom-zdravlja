@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
-import jdk.jfr.events.FileWriteEvent;
 import model.Lekar;
 import model.Pacijent;
 import model.Pregled;
@@ -45,7 +44,9 @@ public class PregledDao {
 				String opis = podaci[5];
 				String status = podaci[6];
 				StatusPreg s = StatusPreg.valueOf(status);
-				Pregled pregled = new Pregled(pacijent, lekar, d, soba, opis, s);
+				String obris = podaci[7];
+				boolean obrisan = Boolean.valueOf(obris);
+				Pregled pregled = new Pregled(pacijent, lekar, d, soba, opis, s, obrisan);
 				pregled.setId(id);
 				pregledi.add(pregled);
 		}
@@ -65,12 +66,40 @@ public class PregledDao {
 		try {
 			File file = new File("src/fajlovi/pregledi.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-			String id = UUID.randomUUID().toString();
-			preg.setId(id);
-			String d = datum.format(preg.getTermin()); 
-			String linija = id + "|" + preg.getPacijent().getKorIme() + "|" + preg.getLekar().getKorIme() + "|" +
-							d + "|" + preg.getSoba() + "|" + preg.getOpis() + "|" + preg.getStatus().toString() + "\n";
+			if (preg.getId() == null) {
+				String id = UUID.randomUUID().toString();
+				preg.setId(id);
+			}
+			String d = datum.format(preg.getTermin());
+			String funkcija = String.valueOf(preg.isObrisan());
+			String linija = preg.getId() + "|" + preg.getPacijent().getKorIme() + "|" + preg.getLekar().getKorIme() + "|" +
+							d + "|" + preg.getSoba() + "|" + preg.getOpis() + "|" + 
+							preg.getStatus().toString() + "|" + funkcija + "\n";
 			writer.write(linija);
+			writer.close();
+			
+		} catch (Exception e) {
+			System.out.println("Greska prilikom upisa pregleda");
+			e.printStackTrace();
+		}
+	}
+	
+	public void upisiPreglede(ArrayList<Pregled> pregledi) {
+		try {
+			File file = new File("src/fajlovi/pregledi.txt");
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+			for (Pregled pre : pregledi) {
+				if (pre.getId() == null) {
+					String id = UUID.randomUUID().toString();
+					pre.setId(id);
+				}
+				String d = datum.format(pre.getTermin());
+				String funkcija = String.valueOf(pre.isObrisan());
+				String linija = pre.getId() + "|" + pre.getPacijent().getKorIme() + "|" + pre.getLekar().getKorIme() + "|" +
+							d + "|" + pre.getSoba() + "|" + pre.getOpis() + "|" + 
+							pre.getStatus().toString() + "|" + funkcija + "\n";
+				writer.write(linija);
+			}
 			writer.close();
 			
 		} catch (Exception e) {
@@ -118,5 +147,28 @@ public class PregledDao {
 			}
 		}
 		return trazeniPreglediPacijenta;
+	}
+	
+	public void izmeniPregled(Pregled pregled) {
+		ucitajPreglede();
+		ArrayList<Pregled> preglediZaFajl = new ArrayList<Pregled>();
+		for (Pregled postojeciPregled : pregledi) {
+			if (postojeciPregled.getId().equals(pregled.getId())) {
+				preglediZaFajl.add(pregled);
+			}else {
+				preglediZaFajl.add(postojeciPregled);
+			}
+		}
+		upisiPreglede(preglediZaFajl);
+	}
+	
+	public void izbrisiPregled(Pregled pregled) {
+		ucitajPreglede();
+		for (Pregled obrisanPregled : pregledi) {
+			if (obrisanPregled.getId().equals(pregled.getId())) {
+				obrisanPregled.setObrisan(true);
+			}
+		}
+		upisiPreglede(pregledi);
 	}
 }

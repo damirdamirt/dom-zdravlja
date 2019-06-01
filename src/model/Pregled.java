@@ -3,7 +3,6 @@ package model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 public class Pregled {
 	
@@ -14,6 +13,7 @@ public class Pregled {
 	private String soba;
 	private String opis;
 	private StatusPreg status;
+	private boolean obrisan;
 	
 	
 	public Pregled() {
@@ -24,10 +24,12 @@ public class Pregled {
 		this.soba = "";
 		this.opis = "";
 		this.status = null;
+		this.obrisan = false;
 	}
 
 
-	public Pregled(Pacijent pacijent, Lekar lekar, Date termin, String soba, String opis, StatusPreg status) {
+	public Pregled(Pacijent pacijent, Lekar lekar, Date termin, String soba, String opis, 
+					StatusPreg status, boolean obrisan) {
 		
 		this.pacijent = pacijent;
 		this.lekar = lekar;
@@ -35,6 +37,7 @@ public class Pregled {
 		this.soba = soba;
 		this.opis = opis;
 		this.status = status;
+		this.obrisan = obrisan;
 	}
 
 
@@ -107,24 +110,34 @@ public class Pregled {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	
+	public boolean isObrisan() {
+		return obrisan;
+	}
+
+
+	public void setObrisan(boolean obrisan) {
+		this.obrisan = obrisan;
+	}
 
 
 	@Override
 	public String toString() {
+		String funkcijaPregleda;
+		if (this.obrisan == true) {
+			funkcijaPregleda = "Da";
+		}else {
+			funkcijaPregleda = "Ne";
+		}
 		
 		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
-		return "pacijent: " + "id: " + id + " " + pacijent.getIme() + " " + pacijent.getPrezime() + 
-				"\nlekar: " + lekar.getIme() + " " + lekar.getPrezime() + 
-				"\ntermin: " + datum.format(termin) + 
-				"\nsoba: " + soba +
-				"\nopis: " + opis + 
-				"\nstatus: " + status;
+		return "Pacijent: " + "id: " + id + " " + pacijent.getIme() + " " + pacijent.getPrezime() + 
+				"\nLekar: " + lekar.getIme() + " " + lekar.getPrezime() + 
+				"\nTermin: " + datum.format(termin) + 
+				"\nSoba: " + soba +
+				"\nOpis: " + opis + 
+				"\nStatus: " + status +
+				"\nObrisan: " + funkcijaPregleda;
 	}
-	
-	
-	
-	
-	
-	
-
 }

@@ -148,11 +148,4 @@ public abstract class Korisnik {
 				"\nlozinka: " + lozinka + 
 				"\npol: " + pol;
 	}
-	
-	
-	
-	
-	
-	
-	
 }

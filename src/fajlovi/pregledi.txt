@@ -1,4 +1,4 @@
-a7cc13f8-e697-4612-a8fd-9c24b7c50972|NikolaG|MilosJ|13.05.2020 10:30|5a|Trne leva ruka|ZATRAZEN|true
-41574a5f-cd3e-4182-a41a-7e12f7e81236|majamajce|ivancis|13.05.2020 10:30|10b|Cesta vrtoglavica|ZATRAZEN|false
-15ca44d1-8c5c-413d-b6cd-453762650925|NikolaG|MilosJ|13.05.2020 10:30|5a|Bolovi u levom kolenu|ZATRAZEN|false
-cc44c7e0-3222-46a4-9b88-aa996e10c1fe|majamajce|ivancis|13.05.2020 10:30|10b|Cesta vrtoglavica|ZATRAZEN|false
+52cc03a6-1b3b-4224-a3fd-a8ede661c957|NikolaG|MilosJ|13.05.2020 10:30|5a|Trne leva ruka|ZATRAZEN|true
+102d4cd2-85e3-49f4-b3b4-6e9417165304|majamajce|ivancis|13.05.2020 10:30|10b|Cesta vrtoglavica|ZATRAZEN|false
+cdbaa924-3321-4ee9-ae9b-a9fc59c0b2b4|NikolaG|MilosJ|13.05.2020 10:30|5a|Bolovi u levom kolenu|ZATRAZEN|false
+0f57fd0f-3709-4dd3-bced-d72efb81f5f4|majamajce|ivancis|13.05.2020 10:30|10b|Cesta vrtoglavica|ZATRAZEN|false

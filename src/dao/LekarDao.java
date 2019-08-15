@@ -32,7 +32,7 @@ public class LekarDao {
 		return lekariZaPrikaz;	
 	}
 	
-	public void ucitajLekare() {
+	public ArrayList<Lekar> ucitajLekare() {
 		
 		lekari.clear();
 		
@@ -69,9 +69,11 @@ public class LekarDao {
 			
 		}catch (IOException e) {
 			System.out.println("Greska prilikom ucitavanja Fajla.");
-			
 			e.printStackTrace();
+			
+			return null;
 		}
+		return lekari;
 	}
 	
 	

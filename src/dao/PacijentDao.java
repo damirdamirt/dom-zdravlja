@@ -33,7 +33,7 @@ public class PacijentDao {
 		return pacijentiZaPrikaz;
 	}
 	
-	public void ucitajPacijente() {
+	public ArrayList<Pacijent> ucitajPacijente() {
 		
 		pacijenti.clear();
 		
@@ -71,7 +71,10 @@ public class PacijentDao {
 		} catch (IOException e) {
 			System.out.println("Greska prilikom ucitavanja pacijenata");
 			e.printStackTrace();
+			
+			return null;
 		}
+		return pacijenti;
 	}
 	
 	public void upisiPacijenta(Pacijent pac) {

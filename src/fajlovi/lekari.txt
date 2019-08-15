@@ -1,4 +1,4 @@
+Milos|Jovanovic|230992000452354|064/2342456|LEKAR|ive Lole Ribara 5|MilosJ|MikiMiki|MUSKI|90000.0|SLUZBA_OP_MED|Pedijatar|true
 Ivana|Stupar|13242498876288|063/5465454|LEKAR|ive Lole Ribara 5|ivancis|ikaika|ZENSKI|100000.0|STOM_SLUZBA|Stomatolog|true
-Milos|Jovanovic|230992000452354|064/2342456|LEKAR|ive Lole Ribara 5|MilosJ|MikiMiki|MUSKI|90000.0|SLUZBA_OP_MED|Pedijatar|true
-Ivana|Stupar|13242498876288|063/5465454|LEKAR|Bulevar Despota|ivancis|ikaika|ZENSKI|100000.0|STOM_SLUZBA|Stomatolog|false
-Milos|Jovanovic|230992000452354|064/2342456|LEKAR|ive Lole Ribara 5|MilosJ|MikiMiki|MUSKI|90000.0|SLUZBA_OP_MED|Pedijatar|true
+Milos|Jovanovic|230992000452354|064/2342456|LEKAR|Zmaj Jovina 46|MilosJ|MikiMiki|MUSKI|90000.0|SLUZBA_OP_MED|Pedijatar|false
+Ivana|Stupar|13242498876288|063/5465454|LEKAR|ive Lole Ribara 5|ivancis|ikaika|ZENSKI|100000.0|STOM_SLUZBA|Stomatolog|true

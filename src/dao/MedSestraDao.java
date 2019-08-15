@@ -17,7 +17,7 @@ public class MedSestraDao {
 	
 	private ArrayList<MedSestra> sestre = new ArrayList<MedSestra>();
 	
-	public void ucitajSestre() {
+	public ArrayList<MedSestra> ucitajSestre() {
 		
 		sestre.clear();
 		
@@ -48,9 +48,11 @@ public class MedSestraDao {
 			
 		}catch (IOException e) {
 			System.out.println("Greska prilikom ucitavanja fajla");
-			
 			e.printStackTrace();
+			
+			return null;
 		}
+		return sestre;
 
 	}
 	

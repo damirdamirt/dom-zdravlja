@@ -23,7 +23,7 @@ public class PregledDao {
 	private ArrayList<Pregled> pregledi = new ArrayList<Pregled>();
 	DateFormat datum = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 	
-	public void ucitajPreglede() {
+	public ArrayList<Pregled> ucitajPreglede() {
 		pregledi.clear();
 		try {
 			File file = new File("src/fajlovi/pregledi.txt");
@@ -58,7 +58,10 @@ public class PregledDao {
 		} catch (ParseException e) {
 			System.out.println("Greska prilikom parsiranja datuma");
 			e.printStackTrace();
+			
+			return null;
 		}
+		return pregledi;
 		
 	}
 	

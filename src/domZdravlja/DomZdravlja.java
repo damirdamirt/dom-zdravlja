@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dao.LekarDao;
 import dao.MedSestraDao;
 import dao.PacijentDao;
+import dao.PregledDao;
 import dao.RacunDao;
 import dao.ZdrKnjizicaDao;
 import model.Korisnik;
@@ -17,6 +18,7 @@ public class DomZdravlja {
 	private PacijentDao pacijentDao;
 	private RacunDao racunDao;
 	private ZdrKnjizicaDao knjizicaDao;
+	private PregledDao pregledDao;
 	
 	private Korisnik logovaniKrisnik;
 	
@@ -26,6 +28,7 @@ public class DomZdravlja {
 		pacijentDao = new PacijentDao();
 		racunDao = new RacunDao();
 		knjizicaDao = new ZdrKnjizicaDao();
+		pregledDao = new PregledDao();
 		
 	}
 	
@@ -68,6 +71,10 @@ public class DomZdravlja {
 	
 	public ZdrKnjizicaDao getKnjizicaDao() {
 		return knjizicaDao;
+	}
+	
+	public PregledDao getPregledDao() {
+		return pregledDao;
 	}
 
 }

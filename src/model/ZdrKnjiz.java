@@ -9,7 +9,6 @@ public class ZdrKnjiz {
 	private String broj;
 	private Date datumIsteka;
 	private int katOsig;
-	private boolean obrisan;
 	
 	
 	public ZdrKnjiz() {
@@ -17,17 +16,15 @@ public class ZdrKnjiz {
 		this.broj = "";
 		this.datumIsteka = null;
 		this.katOsig = 0;
-		this.obrisan = false;
 		
 	}
 
 
-	public ZdrKnjiz(String broj, Date datumIsteka, int katOsig, boolean obrisan) {
+	public ZdrKnjiz(String broj, Date datumIsteka, int katOsig) {
 
 		this.broj = broj;
 		this.datumIsteka = datumIsteka;
 		this.katOsig = katOsig;
-		this.obrisan = obrisan;
 	}
 
 
@@ -61,29 +58,12 @@ public class ZdrKnjiz {
 	}
 	
 
-	public boolean isObrisan() {
-		return obrisan;
-	}
-
-
-	public void setObrisan(boolean obrisan) {
-		this.obrisan = obrisan;
-	}
-
-
 	@Override
 	public String toString() {
-		String funkcijaKnjizice;
-		if (this.obrisan == true) {
-			funkcijaKnjizice = "Da";
-		}else {
-			funkcijaKnjizice = "Ne";
-		}
 		
 		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
 		return "\nbroj: " + broj + 
 				", datumIsteka: " + datum.format(datumIsteka) + 
-				", katOsig: " + katOsig +
-				", Obrisana: " + funkcijaKnjizice;
+				", katOsig: " + katOsig;
 	}
 }

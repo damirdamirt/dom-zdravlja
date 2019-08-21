@@ -33,9 +33,7 @@ public class ZdrKnjizicaDao {
 				String datum = podaci[1];
 				Date datumIsteka = d.parse(datum); 
 				int katOsig = Integer.parseInt(podaci[2]);
-				String zKnjizica = podaci[3];
-				boolean obrisanaKnj = Boolean.valueOf(zKnjizica);
-				ZdrKnjiz knjizica = new ZdrKnjiz(broj, datumIsteka, katOsig, obrisanaKnj);
+				ZdrKnjiz knjizica = new ZdrKnjiz(broj, datumIsteka, katOsig);
 				knjizice.add(knjizica);
 				
 			}
@@ -56,8 +54,7 @@ public class ZdrKnjizicaDao {
 			File file = new File("src/fajlovi/knjizice.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 			String datum = d.format(knjiz.getDatumIsteka());
-			String funkcija = String.valueOf(knjiz.isObrisan());
-			String linija = knjiz.getBroj() + "|" + datum + "|" + knjiz.getKatOsig() + "|" + funkcija + "\n";
+			String linija = knjiz.getBroj() + "|" + datum + "|" + knjiz.getKatOsig() + "\n";
 			writer.write(linija);
 			writer.close();
 			
@@ -75,8 +72,7 @@ public class ZdrKnjizicaDao {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
 				for (ZdrKnjiz knj : knjizice) {
 					String datum = d.format(knj.getDatumIsteka());
-					String funkcija = String.valueOf(knj.isObrisan());
-					String linija = knj.getBroj() + "|" + datum + "|" + knj.getKatOsig() + "|" + funkcija + "\n";
+					String linija = knj.getBroj() + "|" + datum + "|" + knj.getKatOsig() + "|" + "\n";
 					writer.write(linija);
 			}
 				writer.close();
@@ -118,13 +114,16 @@ public class ZdrKnjizicaDao {
 		upisiKnjizice(knjiziceZaFajl);
 	}
 	
-	public void izbrisiKnjizicu(ZdrKnjiz knjizica ) {
+
+	
+	public void izbrisiKnjizicu(ZdrKnjiz obrisanaKnjizica) {
 		ucitajZdrKnjizice();
-		for (ZdrKnjiz obrisanaKnjizica : knjizice) {
-			if(obrisanaKnjizica.getBroj().equals(knjizica.getBroj())) {
-				obrisanaKnjizica.setObrisan(true);
+		ArrayList<ZdrKnjiz> preostaleKnjizice = new ArrayList<ZdrKnjiz>();
+		for (ZdrKnjiz knjizica : knjizice) {
+			if (!obrisanaKnjizica.getBroj().equals(knjizica.getBroj())) {
+				preostaleKnjizice.add(knjizica);
 			}
 		}
-		upisiKnjizice(knjizice);
+		upisiKnjizice(preostaleKnjizice);
 	}
 }

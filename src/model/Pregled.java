@@ -13,7 +13,6 @@ public class Pregled {
 	private String soba;
 	private String opis;
 	private StatusPreg status;
-	private boolean obrisan;
 	
 	
 	public Pregled() {
@@ -24,12 +23,11 @@ public class Pregled {
 		this.soba = "";
 		this.opis = "";
 		this.status = null;
-		this.obrisan = false;
 	}
 
 
 	public Pregled(Pacijent pacijent, Lekar lekar, Date termin, String soba, String opis, 
-					StatusPreg status, boolean obrisan) {
+					StatusPreg status) {
 		
 		this.pacijent = pacijent;
 		this.lekar = lekar;
@@ -37,7 +35,6 @@ public class Pregled {
 		this.soba = soba;
 		this.opis = opis;
 		this.status = status;
-		this.obrisan = obrisan;
 	}
 
 
@@ -111,25 +108,9 @@ public class Pregled {
 		this.id = id;
 	}
 	
-	
-	public boolean isObrisan() {
-		return obrisan;
-	}
-
-
-	public void setObrisan(boolean obrisan) {
-		this.obrisan = obrisan;
-	}
-
 
 	@Override
 	public String toString() {
-		String funkcijaPregleda;
-		if (this.obrisan == true) {
-			funkcijaPregleda = "Da";
-		}else {
-			funkcijaPregleda = "Ne";
-		}
 		
 		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
 		return "Pacijent: " + "id: " + id + " " + pacijent.getIme() + " " + pacijent.getPrezime() + 
@@ -137,7 +118,6 @@ public class Pregled {
 				"\nTermin: " + datum.format(termin) + 
 				"\nSoba: " + soba +
 				"\nOpis: " + opis + 
-				"\nStatus: " + status +
-				"\nObrisan: " + funkcijaPregleda;
+				"\nStatus: " + status;
 	}
 }

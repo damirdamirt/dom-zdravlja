@@ -97,6 +97,18 @@ public class MedSestraDao {
 		return sestre;
 	}
 	
+	public MedSestra nadjiSestruPoKorImenu(String korIme) {
+		ucitajSestre();
+		MedSestra trazenaSestra = null;
+		for (MedSestra sestra : sestre) {
+			if (korIme.equals(sestra.getKorIme())) {
+				trazenaSestra = sestra;
+				break;
+			}
+		}
+		return trazenaSestra;
+	}
+	
 	public void izmeniMedSestru(MedSestra sestra) {
 		ucitajSestre();
 		ArrayList<MedSestra> sestreZaFajl = new ArrayList<MedSestra>();
@@ -114,9 +126,7 @@ public class MedSestraDao {
 		ucitajSestre();
 		ArrayList<MedSestra> preostaleSestre = new ArrayList<MedSestra>();
 		for (MedSestra sestra : sestre) {
-			if(obrisanaSestra.getKorIme().equals(sestra.getKorIme())) {
-				continue;
-			}else {
+			if (!obrisanaSestra.getKorIme().equals(sestra.getKorIme())) {
 				preostaleSestre.add(sestra);
 			}
 		}

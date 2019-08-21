@@ -90,9 +90,7 @@ public class RacunDao {
 		ucitajRacune();
 		ArrayList<Racun> preostaliRacuni = new ArrayList<Racun>();
 		for (Racun racun : racuni) {
-			if (obrisaniRacun.getPregled().getId().equals(racun.getPregled().getId())) {
-				continue;
-			}else {
+			if (!obrisaniRacun.getPregled().getId().equals(racun.getPregled().getId())) {
 				preostaliRacuni.add(racun);
 			}
 		}

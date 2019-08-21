@@ -44,9 +44,7 @@ public class PregledDao {
 				String opis = podaci[5];
 				String status = podaci[6];
 				StatusPreg s = StatusPreg.valueOf(status);
-				String obris = podaci[7];
-				boolean obrisan = Boolean.valueOf(obris);
-				Pregled pregled = new Pregled(pacijent, lekar, d, soba, opis, s, obrisan);
+				Pregled pregled = new Pregled(pacijent, lekar, d, soba, opis, s);
 				pregled.setId(id);
 				pregledi.add(pregled);
 		}
@@ -74,10 +72,9 @@ public class PregledDao {
 				preg.setId(id);
 			}
 			String d = datum.format(preg.getTermin());
-			String funkcija = String.valueOf(preg.isObrisan());
 			String linija = preg.getId() + "|" + preg.getPacijent().getKorIme() + "|" + preg.getLekar().getKorIme() + "|" +
 							d + "|" + preg.getSoba() + "|" + preg.getOpis() + "|" + 
-							preg.getStatus().toString() + "|" + funkcija + "\n";
+							preg.getStatus().toString() + "|" + "\n";
 			writer.write(linija);
 			writer.close();
 			
@@ -97,10 +94,9 @@ public class PregledDao {
 					pre.setId(id);
 				}
 				String d = datum.format(pre.getTermin());
-				String funkcija = String.valueOf(pre.isObrisan());
 				String linija = pre.getId() + "|" + pre.getPacijent().getKorIme() + "|" + pre.getLekar().getKorIme() + "|" +
 							d + "|" + pre.getSoba() + "|" + pre.getOpis() + "|" + 
-							pre.getStatus().toString() + "|" + funkcija + "\n";
+							pre.getStatus().toString() + "|" + "\n";
 				writer.write(linija);
 			}
 			writer.close();
@@ -165,13 +161,15 @@ public class PregledDao {
 		upisiPreglede(preglediZaFajl);
 	}
 	
-	public void izbrisiPregled(Pregled pregled) {
+	
+	public void izbrisiPregled(Pregled obrisaniPregled) {
 		ucitajPreglede();
-		for (Pregled obrisanPregled : pregledi) {
-			if (obrisanPregled.getId().equals(pregled.getId())) {
-				obrisanPregled.setObrisan(true);
+		ArrayList<Pregled> preostaliPregledi = new ArrayList<Pregled>();
+		for (Pregled pregled : pregledi) {
+			if (!obrisaniPregled.getId().equals(pregled.getId())) {
+				preostaliPregledi.add(pregled);
 			}
 		}
-		upisiPreglede(pregledi);
+		upisiPreglede(preostaliPregledi);
 	}
 }

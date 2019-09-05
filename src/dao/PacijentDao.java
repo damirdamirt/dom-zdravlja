@@ -79,7 +79,7 @@ public class PacijentDao {
 			File file = new File("src/fajlovi/pacijenti.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 			String linija = pac.getIme() + "|" + pac.getPrezime() + "|" + pac.getJmbg() + "|" + pac.getBrTel() + "|" +
-							pac.getUloga().toString() + "|" + pac.getAdresa() + "|" + pac.getKorIme() + "|" +
+							UlogaKor.PACIJENT + "|" + pac.getAdresa() + "|" + pac.getKorIme() + "|" +
 							pac.getLozinka() + "|" + pac.getPol().toString() + "|" + pac.getIzabLekar().getKorIme() + "|" +
 							pac.getKnjiz().getBroj() + "\n";
 			writer.write(linija);
@@ -97,9 +97,9 @@ public class PacijentDao {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
 			for (Pacijent pac : pacijenti) {
 				String linija = pac.getIme() + "|" + pac.getPrezime() + "|" + 
-								pac.getJmbg() + "|" + pac.getBrTel() + "|" + pac.getUloga().toString() + "|" + 
+								pac.getJmbg() + "|" + pac.getBrTel() + "|" + UlogaKor.PACIJENT + "|" + 
 								pac.getAdresa() + "|" + pac.getKorIme() + "|" + pac.getLozinka() + "|" + 
-								pac.getPol().toString() + "|" + pac.getIzabLekar().getKorIme() + "|" +
+								pac.getPol().toString() + "|" +pac.getIzabLekar().getKorIme() + "|" +
 								pac.getKnjiz().getBroj() + "\n";
 				writer.write(linija);
 			}
@@ -150,6 +150,18 @@ public class PacijentDao {
 			}
 		}
 		upisiPacijente(preostaliPacijenti);
+	}
+	
+	public boolean validacijaKorImenaPacijent(String korIme) {
+		ucitajPacijente();
+		boolean trazeniPacijent = true;
+		for (Pacijent pacijent : pacijenti) {
+			if (korIme.equals(pacijent.getKorIme())) {
+				trazeniPacijent = false;
+				break;
+			}
+		}
+		return trazeniPacijent;
 	}
 }
 

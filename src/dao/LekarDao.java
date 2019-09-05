@@ -79,7 +79,7 @@ public class LekarDao {
 			File file = new File("src/fajlovi/lekari.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 			String linija = lek.getIme() + "|" + lek.getPrezime() + "|" + lek.getJmbg() + "|" + lek.getBrTel() +
-							"|" + lek.getUloga().toString() + "|" + lek.getAdresa() + "|" + lek.getKorIme() +
+							"|" + UlogaKor.LEKAR + "|" + lek.getAdresa() + "|" + lek.getKorIme() +
 							"|" + lek.getLozinka() + "|" + lek.getPol().toString() + "|" + lek.getPlata() +
 							"|" + lek.getSluzba().toString() + "|" + lek.getSpec() +  "\n";
 			writer.write(linija);
@@ -97,7 +97,7 @@ public class LekarDao {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
 			for (Lekar lek : lekari) {
 				String linija = lek.getIme() + "|" + lek.getPrezime() + "|" + lek.getJmbg() + 
-						"|" + lek.getBrTel() + "|" + lek.getUloga().toString() + 
+						"|" + lek.getBrTel() + "|" + UlogaKor.LEKAR + 
 						"|" + lek.getAdresa() + "|" + lek.getKorIme() + "|" + lek.getLozinka() + 
 						"|" + lek.getPol().toString() + "|" + lek.getPlata() +
 						"|" + lek.getSluzba().toString() + "|" + lek.getSpec() + "\n";
@@ -151,5 +151,16 @@ public class LekarDao {
 		}
 		upisiLekare(preostaliLekari);
 	}
-
+	
+	public boolean validacijaKorImenaLekar(String korIme) {
+		ucitajLekare();
+		boolean trazeniLekar = true;
+		for (Lekar lekar : lekari) {
+			if (korIme.equals(lekar.getKorIme())) {
+				trazeniLekar = false;
+				break;
+			}
+		}
+		return trazeniLekar;
+	}
 }

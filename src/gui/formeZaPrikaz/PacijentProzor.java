@@ -3,6 +3,8 @@ package gui.formeZaPrikaz;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -66,8 +68,8 @@ public class PacijentProzor extends JFrame {
 
 	private void PunjenjePacijentTabele() {
 		String[] zaglavlje = new String[] { "Ime", "Prezime", "JMBG", "Br telefona", "Uloga", "Adresa",
-				"Korisnicko ime", "Lozinka", "Pol", "Knjizica - ID", "Knjizica - datum isteka",
-				"Knjjizica - kat. osiguranja" };
+				"Korisnicko ime", "Lozinka", "Pol", "Izabrani lekar", "Knjizica - ID", "Knjizica-datum isteka",
+				"Knjizica-kat.osiguranja" };
 		Object[][] podaci = new Object[this.domZdravlja.getPacijentDao().ucitajPacijente().size()][zaglavlje.length];
 
 		if (domZdravlja.getLogovaniKorisnik().getUloga().equals(UlogaKor.PACIJENT)) {
@@ -81,9 +83,11 @@ public class PacijentProzor extends JFrame {
 			podaci[0][6] = pacijent.getKorIme();
 			podaci[0][7] = pacijent.getLozinka();
 			podaci[0][8] = pacijent.getPol();
-			podaci[0][9] = pacijent.getKnjiz().getBroj();
-			podaci[0][10] = pacijent.getKnjiz().getDatumIsteka();
-			podaci[0][11] = pacijent.getKnjiz().getKatOsig();
+			podaci[0][9] = pacijent.getIzabLekar().getIme() + " " + pacijent.getIzabLekar().getPrezime();
+			podaci[0][10] = pacijent.getKnjiz().getBroj();
+			DateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
+			podaci[0][11] = formater.format(pacijent.getKnjiz().getDatumIsteka());
+			podaci[0][12] = pacijent.getKnjiz().getKatOsig();
 		} else {
 			for (int i = 0; i < this.domZdravlja.getPacijentDao().ucitajPacijente().size(); i++) {
 				Pacijent pacijent = domZdravlja.getPacijentDao().ucitajPacijente().get(i);
@@ -96,9 +100,13 @@ public class PacijentProzor extends JFrame {
 				podaci[i][6] = pacijent.getKorIme();
 				podaci[i][7] = pacijent.getLozinka();
 				podaci[i][8] = pacijent.getPol();
-				podaci[i][9] = pacijent.getKnjiz().getBroj();
-				podaci[i][10] = pacijent.getKnjiz().getDatumIsteka();
-				podaci[i][11] = pacijent.getKnjiz().getKatOsig();
+				if (pacijent.getIzabLekar() != null) {
+					podaci[i][9] = pacijent.getIzabLekar().getIme() + " " + pacijent.getIzabLekar().getPrezime();
+				}
+				podaci[i][10] = pacijent.getKnjiz().getBroj();
+				DateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
+				podaci[i][11] = formater.format(pacijent.getKnjiz().getDatumIsteka());
+				podaci[i][12] = pacijent.getKnjiz().getKatOsig();
 
 			}
 		}

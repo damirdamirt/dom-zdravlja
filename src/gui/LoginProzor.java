@@ -63,6 +63,11 @@ public class LoginProzor extends JFrame {
 		add(new JLabel());
 		add(btnOK, "split2");
 		add(btnCancel);
+		
+		
+		///////////OBRISI
+		txtKorisnickoIme.setText("Maja");
+		pfLozinka.setText("maja555");
 
 	}
 

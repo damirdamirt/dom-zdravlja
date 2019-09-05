@@ -1,4 +1,2 @@
-Nikola|Grgic|25099884476532|061/2323681|PACIJENT|Fruskogorska 15|NikolaG|nikonikola|MUSKI|MilosJ|10|true
-Maja|Nikolic|2752293224466|064/6465321|PACIJENT|Fruskogorska 15|majamajce|makimaki|ZENSKI|MilosJ|5|true
-Nikola|Grgic|25099884476532|061/2323681|PACIJENT|Sutjeska 15|NikolaG|nikonikola|MUSKI|MilosJ|10|false
-Maja|Nikolic|2752293224466|064/6465321|PACIJENT|Fruskogorska 15|majamajce|makimaki|ZENSKI|MilosJ|5|true
+Marija|Blagotic|232554576767|065343126|PACIJENT|Omladinskih Brigada 5|maca|maca|MUSKI|dane|5b
+Milan|Arandjelovic|2112321123113|0628989765|PACIJENT|Dunavska 6|miki|miki|MUSKI|dane|34b

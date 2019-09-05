@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import model.Lekar;
 import model.MedSestra;
 import model.Pol;
 import model.Sluzba;
@@ -62,7 +63,7 @@ public class MedSestraDao {
 			File file = new File("src/fajlovi/sestre.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 			String linija = ms.getIme() + "|" + ms.getPrezime() + "|" + ms.getJmbg() + "|" + ms.getBrTel() +
-					"|" + ms.getUloga().toString() + "|" + ms.getAdresa() + "|" + ms.getKorIme() + "|" + ms.getLozinka() + "|" + 
+					"|" + ms.getUloga().MED_SESTRA + "|" + ms.getAdresa() + "|" + ms.getKorIme() + "|" + ms.getLozinka() + "|" + 
 					 ms.getPol().toString() + "|" + ms.getPlata() + "|" + ms.getSluzba().toString() + "\n";
 			writer.write(linija);
 			writer.close();
@@ -131,5 +132,17 @@ public class MedSestraDao {
 			}
 		}
 		upisiMedSestre(preostaleSestre);
+	}
+	
+	public boolean validacijaKorImenaSestra(String korIme) {
+		ucitajSestre();
+		boolean trazenaSestra = true;
+		for (MedSestra sestra : sestre) {
+			if (korIme.equals(sestra.getKorIme())) {
+				trazenaSestra = false;
+				break;
+			}
+		}
+		return trazenaSestra;
 	}
 }

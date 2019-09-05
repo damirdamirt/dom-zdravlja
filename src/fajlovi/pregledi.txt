@@ -1,4 +1,2 @@
-52cc03a6-1b3b-4224-a3fd-a8ede661c957|NikolaG|MilosJ|13.05.2020 10:30|5a|Trne leva ruka|ZATRAZEN|true
-102d4cd2-85e3-49f4-b3b4-6e9417165304|majamajce|ivancis|13.05.2020 10:30|10b|Cesta vrtoglavica|ZATRAZEN|false
-cdbaa924-3321-4ee9-ae9b-a9fc59c0b2b4|NikolaG|MilosJ|13.05.2020 10:30|5a|Bolovi u levom kolenu|ZATRAZEN|false
-0f57fd0f-3709-4dd3-bced-d72efb81f5f4|majamajce|ivancis|13.05.2020 10:30|10b|Cesta vrtoglavica|ZATRAZEN|false
+8dfd3c0c-b238-4b81-9b37-31d500da13d1|maca|dane|01.10.2109 09:45|9c|Bolovi u grudima|ZAKAZAN|
+5de6a00b-3e8a-4657-9f7e-f5b71d3d07a8|maca|ivancis|09.01.2019 09:10|90r|Zubobolja|ZAKAZAN|

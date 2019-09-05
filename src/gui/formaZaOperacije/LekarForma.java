@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -23,7 +24,7 @@ import model.UlogaKor;
 import net.miginfocom.swing.MigLayout;
 
 public class LekarForma extends JFrame {
-	
+
 	private JLabel lblUloga = new JLabel("Lekar");
 	private JLabel lblIme = new JLabel("Ime");
 	private JTextField txtIme = new JTextField(20);
@@ -49,17 +50,16 @@ public class LekarForma extends JFrame {
 	private JTextField txtSpecijalizacija = new JTextField(20);
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
-	
+
 	private DomZdravlja domZdravlja;
 	private Lekar lekar;
-	
-	
+
 	public LekarForma(DomZdravlja domZdravlja, Lekar lekar) {
 		this.domZdravlja = domZdravlja;
 		this.lekar = lekar;
 		if (this.lekar == null) {
 			setTitle("Dodavanje lekara");
-		}else {
+		} else {
 			setTitle("Izmena podataka - " + this.lekar.getKorIme());
 		}
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -70,21 +70,21 @@ public class LekarForma extends JFrame {
 		pack();
 
 	}
-	
+
 	private void initGUI() {
-		
+
 		MigLayout layout = new MigLayout("Wrap 2");
 		setLayout(layout);
-		
+
 		if (this.lekar != null) {
 			PopuniPolja();
 		}
-		
+
 		cbSluzba.addItem(Sluzba.STOM_SLUZBA);
 		cbSluzba.addItem(Sluzba.SLUZBA_OP_MED);
 		cbSluzba.addItem(Sluzba.SLU_ZDR_ZAS_RAD);
 		cbSluzba.addItem(Sluzba.SLU_ZDR_ZAS_DECE);
-		
+
 		add(lblUloga);
 		add(new JLabel());
 		add(lblIme);
@@ -112,9 +112,9 @@ public class LekarForma extends JFrame {
 		add(new JLabel());
 		add(btnOk, "split 2");
 		add(btnCancel);
-		
+
 	}
-	
+
 	private void PopuniPolja() {
 		txtIme.setText(this.lekar.getIme());
 		txtPrezime.setText(this.lekar.getPrezime());
@@ -128,47 +128,111 @@ public class LekarForma extends JFrame {
 		cbSluzba.setSelectedItem(this.lekar.getSluzba());
 		txtSpecijalizacija.setText(this.lekar.getSpec());
 	}
-	
+
 	private void initActions() {
 		btnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				UlogaKor uloga = domZdravlja.getLogovaniKorisnik().getUloga().LEKAR;
-				String ime = txtIme.getText().trim();
-				String prezime = txtPrezime.getText().trim();
-				String jmbg = txtJMBG.getText().trim();
-				String brTel = txtBrTelefona.getText().trim();
-				String adresa = txtAdresa.getText().trim();
-				String korIme = txtKorisnickoIme.getText().trim();
-				String lozinka = new String(pfLozinka.getPassword()).trim();
-				Pol pol = (Pol) cbPol.getSelectedItem();
-				double plata = Double.parseDouble(txtPlata.getText().trim());
-				Sluzba sluzba = (Sluzba) cbSluzba.getSelectedItem();
-				String spec = txtSpecijalizacija.getText().trim();
-				if (lekar == null) {
-					lekar = new Lekar(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, pol, plata, sluzba, spec);
-					domZdravlja.getLekarDao().upisiLekara(lekar);
-				}else {
-					lekar.setIme(ime);
-					lekar.setPrezime(prezime);
-					lekar.setJmbg(jmbg);
-					lekar.setBrTel(brTel);
-					lekar.setAdresa(adresa);
-					lekar.setKorIme(korIme);
-					lekar.setLozinka(lozinka);
-					lekar.setPol(pol);
-					lekar.setPlata(plata);
-					lekar.setSluzba(sluzba);
-					lekar.setSpec(spec);
-					domZdravlja.getLekarDao().izmeniLekara(lekar);
+				if (validacija() == true) {
+					UlogaKor uloga = domZdravlja.getLogovaniKorisnik().getUloga().LEKAR;
+					String ime = txtIme.getText().trim();
+					String prezime = txtPrezime.getText().trim();
+					String jmbg = txtJMBG.getText().trim();
+					String brTel = txtBrTelefona.getText().trim();
+					String adresa = txtAdresa.getText().trim();
+					String korIme = txtKorisnickoIme.getText().trim();
+					String lozinka = new String(pfLozinka.getPassword()).trim();
+					Pol pol = (Pol) cbPol.getSelectedItem();
+					double plata = Double.parseDouble(txtPlata.getText().trim());
+					Sluzba sluzba = (Sluzba) cbSluzba.getSelectedItem();
+					String spec = txtSpecijalizacija.getText().trim();
+					if (lekar == null) {
+						lekar = new Lekar(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, pol, plata, sluzba,
+								spec);
+						domZdravlja.getLekarDao().upisiLekara(lekar);
+					} else {
+						lekar.setIme(ime);
+						lekar.setPrezime(prezime);
+						lekar.setJmbg(jmbg);
+						lekar.setBrTel(brTel);
+						lekar.setAdresa(adresa);
+						lekar.setKorIme(korIme);
+						lekar.setLozinka(lozinka);
+						lekar.setPol(pol);
+						lekar.setPlata(plata);
+						lekar.setSluzba(sluzba);
+						lekar.setSpec(spec);
+						domZdravlja.getLekarDao().izmeniLekara(lekar);
+					}
+					LekarForma.this.dispose();
+					LekarForma.this.setVisible(false);
 				}
-				LekarForma.this.dispose();
-				LekarForma.this.setVisible(false);
 			}
 		});
+		btnCancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LekarForma.this.setVisible(true);
+				LekarForma.this.dispose();
+			}
+		});
+	}
+
+	private boolean validacija() {
+		boolean ok = true;
+		String poruka = "Molimo popravite sledece greske u unosu:\n";
+
+		if (txtIme.getText().trim().equals("")) {
+			poruka += "- Unesite ime\n";
+			ok = false;
+		}
+		if (txtPrezime.getText().trim().equals("")) {
+			poruka += "- Unesite prezime\n";
+			ok = false;
+		}
+
+		if (txtJMBG.getText().trim().equals("")) {
+			poruka += "- Unesite JMBG\n";
+			ok = false;
+		}
+
+		if (txtBrTelefona.getText().trim().equals("")) {
+			poruka += "- Unesite broj telefona\n";
+			ok = false;
+		}
+		if (txtAdresa.getText().trim().equals("")) {
+			poruka += "- Unesite adresu\n";
+			ok = false;
+		}
+		if (txtKorisnickoIme.getText().trim().equals("")) {
+			poruka += "- Unesite korisnicko ime\n";
+			ok = false;
+		}
+		String lozinka = new String(pfLozinka.getPassword()).trim();
+		if (lozinka.trim().equals("")) {
+			poruka += "- Unesite lozinku\n";
+			ok = false;
+		}
+		try {
+			Double.parseDouble(txtPlata.getText().trim());
+		} catch (NumberFormatException e) {
+			poruka += "- Plata mora biti broj";
+			ok = false;
+		}
+		if (txtSpecijalizacija.getText().trim().equals("")) {
+			poruka += "- Unesite specijalizaciju\n";
+			ok = false;
+		}
+		String korIme = txtKorisnickoIme.getText().trim();
+		if ((domZdravlja.getLekarDao())
+				.validacijaKorImenaLekar(korIme) == false) {
+			poruka += "- Korisnicko ime vec postoji, unesite drugo.";
+			ok = false;
+		}
 		
-		
-		
+		if (ok == false) {
+			JOptionPane.showMessageDialog(null, poruka, "Neispravni podaci", JOptionPane.WARNING_MESSAGE);
+		}
+		return ok;
 	}
 }

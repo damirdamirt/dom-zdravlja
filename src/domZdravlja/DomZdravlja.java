@@ -31,8 +31,7 @@ public class DomZdravlja {
 		pregledDao = new PregledDao();
 		
 	}
-	
-	
+		
 	
 	public boolean login(String korisnickoIme, String lozinka) {
 		ArrayList<Korisnik> korisnici = new ArrayList<Korisnik>();

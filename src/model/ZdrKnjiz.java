@@ -8,19 +8,19 @@ public class ZdrKnjiz {
 	
 	private String broj;
 	private Date datumIsteka;
-	private int katOsig;
+	private KategOsiguranjaKnjizice katOsig;
 	
 	
 	public ZdrKnjiz() {
 
 		this.broj = "";
 		this.datumIsteka = null;
-		this.katOsig = 0;
+		this.katOsig = null;
 		
 	}
 
 
-	public ZdrKnjiz(String broj, Date datumIsteka, int katOsig) {
+	public ZdrKnjiz(String broj, Date datumIsteka, KategOsiguranjaKnjizice katOsig) {
 
 		this.broj = broj;
 		this.datumIsteka = datumIsteka;
@@ -48,12 +48,12 @@ public class ZdrKnjiz {
 	}
 
 
-	public int getKatOsig() {
+	public KategOsiguranjaKnjizice getKatOsig() {
 		return katOsig;
 	}
 
 
-	public void setKatOsig(int katOsig) {
+	public void setKatOsig(KategOsiguranjaKnjizice katOsig) {
 		this.katOsig = katOsig;
 	}
 	

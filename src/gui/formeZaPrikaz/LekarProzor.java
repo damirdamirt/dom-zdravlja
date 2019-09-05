@@ -64,9 +64,9 @@ public class LekarProzor extends JFrame {
 	}
 
 	private void punjenjeLekarTabele() {
-		String[] zaglavlje = new String[] { "Ime", "Prezime", "JMBG", "Br. telefona", "Uloga", "Adresa", "Korisnicko ime", "Lozinka", "Pol",  "Plata",
-				"Sluzba", "Specijalizacija"};
-		
+		String[] zaglavlje = new String[] { "Ime", "Prezime", "JMBG", "Br. telefona", "Uloga", "Adresa",
+				"Korisnicko ime", "Lozinka", "Pol", "Plata", "Sluzba", "Specijalizacija" };
+
 		Object[][] podaci = new Object[this.domZdravlja.getLekarDao().ucitajLekare().size()][zaglavlje.length];
 
 		if (domZdravlja.getLogovaniKorisnik().getUloga().equals(UlogaKor.LEKAR)) {
@@ -117,11 +117,11 @@ public class LekarProzor extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switch (domZdravlja.getLogovaniKorisnik().getUloga()) {
-				case LEKAR:{
+				case LEKAR: {
 					JOptionPane.showMessageDialog(null, "Ne mozete koristiti ovu opciju");
 				}
 					break;
-				case MED_SESTRA:{
+				case MED_SESTRA: {
 					LekarForma lf = new LekarForma(domZdravlja, lekar);
 					lf.setVisible(true);
 				}
@@ -135,12 +135,12 @@ public class LekarProzor extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switch (domZdravlja.getLogovaniKorisnik().getUloga()) {
-				case LEKAR:{
+				case LEKAR: {
 					JOptionPane.showMessageDialog(null, "Ne mozete koristiti ovu opciju", "Greska",
 							JOptionPane.WARNING_MESSAGE);
 				}
 					break;
-				case MED_SESTRA:{
+				case MED_SESTRA: {
 					int red = lekarTabela.getSelectedRow();
 					if (red == -1) {
 						JOptionPane.showMessageDialog(null, "Niste selektovali red", "Greska",
@@ -168,12 +168,12 @@ public class LekarProzor extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switch (domZdravlja.getLogovaniKorisnik().getUloga()) {
-				case LEKAR:{
+				case LEKAR: {
 					JOptionPane.showMessageDialog(null, "Ne mozete koristiti ovu opciju", "Greska",
 							JOptionPane.WARNING_MESSAGE);
 				}
 					break;
-				case MED_SESTRA:{
+				case MED_SESTRA: {
 					int red = lekarTabela.getSelectedRow();
 					if (red == -1) {
 						JOptionPane.showMessageDialog(null, "Niste selektovali red", "Greska",
@@ -188,11 +188,10 @@ public class LekarProzor extends JFrame {
 							if (izbor == JOptionPane.YES_OPTION) {
 								domZdravlja.getLekarDao().izbrisiLekara(lekar);
 								model.removeRow(red);
-
-							} else {
-								JOptionPane.showMessageDialog(null, "Nije moguce pronaci odabranog lekara", "Greska",
-										JOptionPane.WARNING_MESSAGE);
 							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Nije moguce pronaci odabranog lekara", "Greska",
+									JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				}

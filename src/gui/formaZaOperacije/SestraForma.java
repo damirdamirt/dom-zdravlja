@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import dao.LekarDao;
 import domZdravlja.DomZdravlja;
 import model.MedSestra;
 import model.Pacijent;
@@ -202,10 +203,24 @@ public class SestraForma extends JFrame {
 			poruka += "- Plata mora biti broj";
 			ok = false;
 		}
+		
+		String korIme = txtKorisnickoIme.getText().trim();
+		if (((LekarDao) domZdravlja.getLekarDao())
+				.validacijaKorImenaLekar(korIme) == false) {
+			poruka += "- Korisnicko ime vec postoji, unesite drugo.";
+			ok = false;
+		}
+		
+		if (domZdravlja.getSestraDao()
+				.validacijaKorImenaSestra(korIme) == false) {
+			poruka += "- Korisnicko ime vec postoji, unesite drugo.";
+			ok = false;
+		}
 
 		if (ok == false) {
 			JOptionPane.showMessageDialog(null, poruka, "Neispravni podaci", JOptionPane.WARNING_MESSAGE);
 		}
+
 		return ok;
 	}
 }

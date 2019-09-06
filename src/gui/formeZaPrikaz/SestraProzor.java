@@ -30,7 +30,6 @@ public class SestraProzor extends JFrame {
 	private JButton btnEdit = new JButton();
 	private JButton btnDelete = new JButton();
 
-	private DefaultTableModel tableModel;
 	private JTable sestraTabela;
 
 	private DomZdravlja domZdravlja;
@@ -58,9 +57,16 @@ public class SestraProzor extends JFrame {
 		btnDelete.setIcon(deleteIcon);
 		mainToolBar.add(btnDelete);
 		add(mainToolBar, BorderLayout.NORTH);
+		sestraTabela = new JTable();
+		sestraTabela.setRowSelectionAllowed(true);
+		sestraTabela.setColumnSelectionAllowed(false);
+		sestraTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		sestraTabela.setDefaultEditor(Object.class, null);
+		JScrollPane scrollPane = new JScrollPane(sestraTabela);
+		add(scrollPane, BorderLayout.CENTER);
 	}
 
-	private void punjenjeTabeleSestra() {
+	public void punjenjeTabeleSestra() {
 		String[] zaglavlje = new String[] { "Ime", "Prezime", "JMBG", "Br telefona", "Uloga", "Adresa",
 				"Korisnicko ime", "Lozinka", "Pol", "Plata", "Sluzba" };
 		Object[][] podaci = new Object[this.domZdravlja.getSestraDao().ucitajSestre().size()][zaglavlje.length];
@@ -81,22 +87,15 @@ public class SestraProzor extends JFrame {
 			podaci[i][10] = sestra.getSluzba();
 		}
 
-		tableModel = new DefaultTableModel(podaci, zaglavlje);
-		sestraTabela = new JTable(tableModel);
-		sestraTabela.setRowSelectionAllowed(true);
-		sestraTabela.setColumnSelectionAllowed(false);
-		sestraTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		sestraTabela.setDefaultEditor(Object.class, null);
-
-		JScrollPane scrollPane = new JScrollPane(sestraTabela);
-		add(scrollPane, BorderLayout.CENTER);
+		DefaultTableModel tableModel = new DefaultTableModel(podaci, zaglavlje);
+		sestraTabela.setModel(tableModel);
 	}
 
 	private void initActions() {
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SestraForma sf = new SestraForma(domZdravlja, sestra);
+				SestraForma sf = new SestraForma(SestraProzor.this, domZdravlja, sestra);
 				sf.setVisible(true);
 			}
 		});
@@ -111,7 +110,7 @@ public class SestraProzor extends JFrame {
 					String korIme = model.getValueAt(red, 6).toString();
 					MedSestra sestra = domZdravlja.getSestraDao().nadjiSestruPoKorImenu(korIme);
 					if (sestra != null) {
-						SestraForma sf = new SestraForma(domZdravlja, sestra);
+						SestraForma sf = new SestraForma(SestraProzor.this, domZdravlja, sestra);
 						sf.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "Nije moguce pronaci odabranu sestru", "Greska",

@@ -44,6 +44,20 @@ public class Lekar extends Zaposleni {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Lekar) {
+			Lekar lekar = (Lekar) obj;
+			if (korIme.equals(lekar.getKorIme())) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return super.equals(obj);
+		}
+	}
+
+	@Override
 	public String toString() {
 		return ime + " " + prezime;
 	}

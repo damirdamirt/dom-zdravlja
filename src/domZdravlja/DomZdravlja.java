@@ -12,29 +12,29 @@ import model.Korisnik;
 import model.Lekar;
 
 public class DomZdravlja {
-	
+
 	private LekarDao lekarDao;
 	private MedSestraDao sestraDao;
 	private PacijentDao pacijentDao;
 	private RacunDao racunDao;
 	private ZdrKnjizicaDao knjizicaDao;
 	private PregledDao pregledDao;
-	
+
+	private ArrayList<Korisnik> korisnici;
 	private Korisnik logovaniKrisnik;
-	
-	public DomZdravlja () {
+
+	public DomZdravlja() {
 		lekarDao = new LekarDao();
 		sestraDao = new MedSestraDao();
 		pacijentDao = new PacijentDao();
 		racunDao = new RacunDao();
 		knjizicaDao = new ZdrKnjizicaDao();
 		pregledDao = new PregledDao();
-		
+
 	}
-		
-	
+
 	public boolean login(String korisnickoIme, String lozinka) {
-		ArrayList<Korisnik> korisnici = new ArrayList<Korisnik>();
+		korisnici = new ArrayList<Korisnik>();
 		korisnici.addAll(lekarDao.ucitajLekare());
 		korisnici.addAll(sestraDao.ucitajSestre());
 		korisnici.addAll(pacijentDao.ucitajPacijente());
@@ -46,32 +46,35 @@ public class DomZdravlja {
 		}
 		return false;
 	}
-	
-	
+
+	public ArrayList<Korisnik> getKorisnici() {
+		return korisnici;
+	}
+
 	public Korisnik getLogovaniKorisnik() {
 		return logovaniKrisnik;
 	}
-	
+
 	public LekarDao getLekarDao() {
 		return lekarDao;
 	}
-	
+
 	public MedSestraDao getSestraDao() {
 		return sestraDao;
 	}
-	
+
 	public PacijentDao getPacijentDao() {
 		return pacijentDao;
 	}
-	
+
 	public RacunDao getRacunDao() {
 		return racunDao;
 	}
-	
+
 	public ZdrKnjizicaDao getKnjizicaDao() {
 		return knjizicaDao;
 	}
-	
+
 	public PregledDao getPregledDao() {
 		return pregledDao;
 	}

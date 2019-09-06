@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import domZdravlja.DomZdravlja;
+import gui.formeZaPrikaz.PregledProzor;
 import model.Lekar;
 import model.MedSestra;
 import model.Pacijent;
@@ -41,10 +42,12 @@ public class PregledForma extends JFrame {
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
 
+	private PregledProzor pregledProzor;
 	private DomZdravlja domZdravlja;
 	private Pregled pregled;
 
-	public PregledForma(DomZdravlja domZdravlja, Pregled pregled) {
+	public PregledForma(PregledProzor pregledProzor, DomZdravlja domZdravlja, Pregled pregled) {
+		this.pregledProzor = pregledProzor;
 		this.domZdravlja = domZdravlja;
 		this.pregled = pregled;
 		if (this.pregled == null) {
@@ -219,6 +222,7 @@ public class PregledForma extends JFrame {
 					}
 					PregledForma.this.dispose();
 					PregledForma.this.setVisible(false);
+					PregledForma.this.pregledProzor.punjenjePregledTabela();
 				}
 			}
 		});
@@ -229,6 +233,37 @@ public class PregledForma extends JFrame {
 				PregledForma.this.dispose();
 			}
 		});
+	}
+
+	private boolean validacijaVremenaLekara() {
+		// Validacija da vremena lekara
+		Lekar lekar = (Lekar) cbLekar.getSelectedItem();
+		DateFormat formater = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		Date termin = null;
+		try {
+			if (!txttermin.getText().trim().equals("")) {
+				termin = formater.parse(txttermin.getText().trim());
+			}
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Greska prilikom parsiranja datuma", "Greska",
+					JOptionPane.WARNING_MESSAGE);
+		}
+
+		if (lekar != null && termin != null) {
+			ArrayList<Pregled> pregledi = domZdravlja.getPregledDao().nadjiPregledePoKorImenuLekara(lekar.getKorIme());
+			for (Pregled pregled : pregledi) {
+				if (termin.getDay() == pregled.getTermin().getDay()
+						&& termin.getMonth() == pregled.getTermin().getMonth()
+						&& termin.getYear() == pregled.getTermin().getYear()
+						&& termin.getHours() == pregled.getTermin().getHours()
+						&& termin.getMinutes() <= (pregled.getTermin().getMinutes() + 15)) {
+					return false;
+				}
+			}
+		}
+		return true;
+
 	}
 
 	private boolean validacija() {
@@ -258,6 +293,12 @@ public class PregledForma extends JFrame {
 				poruka += "- Unesite opis\n";
 				ok = false;
 			}
+
+			if (!validacijaVremenaLekara()) {
+				poruka += "- Doktor je zauzet narednih 15 min\n";
+				ok = false;
+			}
+
 			if (ok == false) {
 				JOptionPane.showMessageDialog(null, poruka, "Neispravni podaci", JOptionPane.WARNING_MESSAGE);
 			}

@@ -42,7 +42,7 @@ public class PregledDao {
 				Date d;
 				if (termin.equals("")) {
 					d = null;
-				}else {
+				} else {
 					d = datum.parse(termin);
 				}
 				String soba = podaci[4];
@@ -103,15 +103,29 @@ public class PregledDao {
 					String id = UUID.randomUUID().toString();
 					pre.setId(id);
 				}
-				String d;
+				String datumPregleda;
 				if (pre.getTermin() == null) {
-					d = "";
+					datumPregleda = "";
 				} else {
-					d = datum.format(pre.getTermin());
+					datumPregleda = datum.format(pre.getTermin());
 				}
-				String linija = pre.getId() + "|" + pre.getPacijent().getKorIme() + "|" + pre.getLekar().getKorIme()
-						+ "|" + d + "|" + pre.getSoba() + "|" + pre.getOpis() + "|" + pre.getStatus().toString() + "|"
-						+ "\n";
+				String korisnickoImePacijenta;
+				if (pre.getPacijent() == null) {
+					korisnickoImePacijenta = "";
+				} else {
+					korisnickoImePacijenta = pre.getPacijent().getKorIme();
+				}
+
+				String korisnickoImeLekara;
+				if (pre.getLekar() == null) {
+					korisnickoImeLekara = "";
+				} else {
+					korisnickoImeLekara = pre.getLekar().getKorIme();
+				}
+
+				String linija = pre.getId() + "|" + korisnickoImePacijenta + "|" + korisnickoImeLekara + "|"
+						+ datumPregleda + "|" + pre.getSoba() + "|" + pre.getOpis() + "|" + pre.getStatus().toString()
+						+ "|" + "\n";
 				writer.write(linija);
 			}
 			writer.close();
@@ -140,7 +154,7 @@ public class PregledDao {
 
 		ArrayList<Pregled> trazeniPreglediLekara = new ArrayList<Pregled>();
 		for (Pregled pregled : pregledi) {
-			if (korImeLekara.equals(pregled.getLekar().getKorIme())) {
+			if (pregled.getLekar() != null && korImeLekara.equals(pregled.getLekar().getKorIme())) {
 				trazeniPreglediLekara.add(pregled);
 			}
 		}

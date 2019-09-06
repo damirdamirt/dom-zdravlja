@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 
 import dao.ZdrKnjizicaDao;
 import domZdravlja.DomZdravlja;
+import gui.formeZaPrikaz.PacijentProzor;
 import model.KategOsiguranjaKnjizice;
 import model.Lekar;
 import model.Pacijent;
@@ -56,14 +57,17 @@ public class PacijentForma extends JFrame {
 	private JLabel lblKnjizicaDatumIsteka = new JLabel("Knjizica - datum isteka");
 	private JTextField txtKnjizicaDatumIsteka = new JTextField(40);
 	private JLabel lblKnjizicaKatOsiguanja = new JLabel("Knjizica - kategorija osiguranja");
-	private JComboBox<KategOsiguranjaKnjizice> cbKnjizicaKatOsiguranja = new JComboBox<KategOsiguranjaKnjizice>(KategOsiguranjaKnjizice.values());
+	private JComboBox<KategOsiguranjaKnjizice> cbKnjizicaKatOsiguranja = new JComboBox<KategOsiguranjaKnjizice>(
+			KategOsiguranjaKnjizice.values());
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
-
+	
+	private PacijentProzor pacijentProzor;
 	private DomZdravlja domZdravlja;
 	private Pacijent pacijent;
 
-	public PacijentForma(DomZdravlja domZdravlja, Pacijent pacijent) {
+	public PacijentForma(PacijentProzor pacijentProzor, DomZdravlja domZdravlja, Pacijent pacijent) {
+		this.pacijentProzor = pacijentProzor;
 		this.domZdravlja = domZdravlja;
 		this.pacijent = pacijent;
 		if (this.pacijent == null) {
@@ -130,6 +134,7 @@ public class PacijentForma extends JFrame {
 		txtBrTelefona.setText(this.pacijent.getBrTel());
 		txtAdresa.setText(this.pacijent.getAdresa());
 		txtKorisnickoIme.setText(this.pacijent.getKorIme());
+		txtKorisnickoIme.setEnabled(false);
 		pfLozinka.setText(this.pacijent.getLozinka());
 		cbPol.setSelectedItem(this.pacijent.getPol());
 		cbLekar.setSelectedItem(this.pacijent.getIzabLekar());
@@ -144,7 +149,11 @@ public class PacijentForma extends JFrame {
 		btnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (validacija() == true) {
+				boolean isEdit = false;
+				if (pacijent != null) {
+					isEdit = true;
+				}
+				if (validacija(isEdit) == true) {
 					UlogaKor uloga = domZdravlja.getLogovaniKorisnik().getUloga().PACIJENT;
 					String ime = txtIme.getText().trim();
 					String prezime = txtPrezime.getText().trim();
@@ -165,9 +174,10 @@ public class PacijentForma extends JFrame {
 						JOptionPane.showMessageDialog(null, "Greska prilikom parsiranja datuma", "Greska",
 								JOptionPane.WARNING_MESSAGE);
 					}
-					KategOsiguranjaKnjizice kategOsig = (KategOsiguranjaKnjizice) cbKnjizicaKatOsiguranja.getSelectedItem();
+					KategOsiguranjaKnjizice kategOsig = (KategOsiguranjaKnjizice) cbKnjizicaKatOsiguranja
+							.getSelectedItem();
 
-					if (pacijent == null) {
+					if (!isEdit) {
 						ZdrKnjiz zdrKnjizica = new ZdrKnjiz(broj, datumIsteka, kategOsig);
 						domZdravlja.getKnjizicaDao().upisiKnjizicu(zdrKnjizica);
 						pacijent = new Pacijent(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, pol, lekar,
@@ -189,6 +199,7 @@ public class PacijentForma extends JFrame {
 					}
 					PacijentForma.this.dispose();
 					PacijentForma.this.setVisible(false);
+					PacijentForma.this.pacijentProzor.PunjenjePacijentTabele();
 				}
 			}
 		});
@@ -201,7 +212,7 @@ public class PacijentForma extends JFrame {
 		});
 	}
 
-	private boolean validacija() {
+	private boolean validacija(boolean isEdit) {
 		boolean ok = true;
 		String poruka = "Molimo popravite sledece greske u unosu:\n";
 
@@ -239,15 +250,17 @@ public class PacijentForma extends JFrame {
 		if (txtKnjizicaId.getText().trim().equals("")) {
 			poruka += "- Unesite broj knjizice\n";
 			ok = false;
-			
-		}else {
-			String broj = txtKnjizicaId.getText().trim();
-			if (((ZdrKnjizicaDao) domZdravlja.getKnjizicaDao()).validacijaIdknjizice(broj) == false) {
-				poruka += "- broj vec postoji, unesite drugi\n";
-				ok = false;
+
+		} else {
+			if (!isEdit) {
+				String broj = txtKnjizicaId.getText().trim();
+				if (((ZdrKnjizicaDao) domZdravlja.getKnjizicaDao()).validacijaIdknjizice(broj) == false) {
+					poruka += "- broj vec postoji, unesite drugi\n";
+					ok = false;
+				}
 			}
 		}
-	
+
 		DateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
 		try {
 			formater.parse(txtKnjizicaDatumIsteka.getText().trim());
@@ -255,13 +268,20 @@ public class PacijentForma extends JFrame {
 			poruka += "- Unesite datum isteka\n";
 			ok = false;
 		}
-		String korIme = txtKorisnickoIme.getText().trim();
-		if (domZdravlja.getPacijentDao()
-				.validacijaKorImenaPacijent(korIme) == false) {
-			poruka += "- Korisnicko ime vec postoji, unesite drugo.";
-			ok = false;
+		if (!isEdit) {
+			String korIme = txtKorisnickoIme.getText().trim();
+			if ((domZdravlja.getLekarDao()).validacijaKorImenaLekar(korIme) == false) {
+				poruka += "- Korisnicko ime vec postoji, unesite drugo.";
+				ok = false;
+			} else if ((domZdravlja.getPacijentDao()).validacijaKorImenaPacijent(korIme) == false) {
+				poruka += "- Korisnicko ime vec postoji, unesite drugo.";
+				ok = false;
+			} else if ((domZdravlja.getSestraDao()).validacijaKorImenaSestra(korIme) == false) {
+				poruka += "- Korisnicko ime vec postoji, unesite drugo.";
+				ok = false;
+			}
 		}
-		
+
 		if (ok == false) {
 			JOptionPane.showMessageDialog(null, poruka, "Neispravni podaci", JOptionPane.WARNING_MESSAGE);
 		}

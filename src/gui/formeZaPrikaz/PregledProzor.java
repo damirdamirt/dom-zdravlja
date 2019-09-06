@@ -34,7 +34,6 @@ public class PregledProzor extends JFrame {
 	private JButton btnEdit = new JButton();
 	private JButton btnDelete = new JButton();
 
-	private DefaultTableModel tablemodel;
 	private JTable pregledTabela;
 
 	private DomZdravlja domZdravlja;
@@ -63,15 +62,17 @@ public class PregledProzor extends JFrame {
 		btnDelete.setIcon(deleteIcon);
 		mainToolbar.add(btnDelete);
 		add(mainToolbar, BorderLayout.NORTH);
-
+		pregledTabela = new JTable();
+		pregledTabela.setRowSelectionAllowed(true);
+		pregledTabela.setColumnSelectionAllowed(false);
+		pregledTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		pregledTabela.setDefaultEditor(Object.class, null);
+		JScrollPane scrollPane = new JScrollPane(pregledTabela);
+		add(scrollPane, BorderLayout.CENTER);
 	}
 
-	private void punjenjePregledTabela() {
+	public void punjenjePregledTabela() {
 		ArrayList<Pregled> pregledi = null;
-
-//		if(domZdravlja.getLogovaniKorisnik().getUloga().equals(UlogaKor.MED_SESTRA)) {
-//			pregled = this.domZdravlja.getPregledDao().ucitajPreglede();
-//		}
 
 		switch (domZdravlja.getLogovaniKorisnik().getUloga()) {
 		case MED_SESTRA:
@@ -96,7 +97,9 @@ public class PregledProzor extends JFrame {
 			if (pregled.getPacijent() != null) {
 				podaci[i][0] = pregled.getPacijent().getIme() + " " + pregled.getPacijent().getPrezime();
 			}
-			podaci[i][1] = pregled.getLekar().getIme() + " " + pregled.getLekar().getPrezime();
+			if (pregled.getLekar() != null) {
+				podaci[i][1] = pregled.getLekar().getIme() + " " + pregled.getLekar().getPrezime();
+			}
 			podaci[i][2] = pregled.getId();
 			DateFormat formater = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 			if (pregled.getTermin() == null) {
@@ -109,16 +112,8 @@ public class PregledProzor extends JFrame {
 			podaci[i][6] = pregled.getStatus();
 		}
 
-		tablemodel = new DefaultTableModel(podaci, zaglavlje);
-		pregledTabela = new JTable(tablemodel);
-		pregledTabela.setRowSelectionAllowed(true);
-		pregledTabela.setColumnSelectionAllowed(false);
-		pregledTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		pregledTabela.setDefaultEditor(Object.class, null);
-
-		JScrollPane scrollPane = new JScrollPane(pregledTabela);
-		add(scrollPane, BorderLayout.CENTER);
-
+		DefaultTableModel tablemodel = new DefaultTableModel(podaci, zaglavlje);
+		pregledTabela.setModel(tablemodel);
 	}
 
 	private void initActions() {
@@ -132,11 +127,11 @@ public class PregledProzor extends JFrame {
 				}
 					break;
 				case PACIJENT:
-					PregledForma prf = new PregledForma(domZdravlja, pregled);
+					PregledForma prf = new PregledForma(PregledProzor.this, domZdravlja, pregled);
 					prf.setVisible(true);
 					break;
 				case MED_SESTRA:
-					PregledForma pref = new PregledForma(domZdravlja, pregled);
+					PregledForma pref = new PregledForma(PregledProzor.this, domZdravlja, pregled);
 					pref.setVisible(true);
 					break;
 				}
@@ -153,7 +148,7 @@ public class PregledProzor extends JFrame {
 					String id = model.getValueAt(red, 2).toString();
 					Pregled pregled = domZdravlja.getPregledDao().nadjiPregPoId(id);
 					if (pregled != null) {
-						PregledForma prf = new PregledForma(domZdravlja, pregled);
+						PregledForma prf = new PregledForma(PregledProzor.this, domZdravlja, pregled);
 						prf.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "Nije moguce pronaci odabrani pregled", "Greska",
@@ -178,7 +173,7 @@ public class PregledProzor extends JFrame {
 								JOptionPane.WARNING_MESSAGE);
 					} else {
 						DefaultTableModel model = (DefaultTableModel) pregledTabela.getModel();
-						String id = model.getValueAt(red, 0).toString();
+						String id = model.getValueAt(red, 2).toString();
 						Pregled pregled = domZdravlja.getPregledDao().nadjiPregPoId(id);
 						if (pregled != null) {
 							int izbor = JOptionPane.showConfirmDialog(null,

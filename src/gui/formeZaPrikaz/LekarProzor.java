@@ -31,8 +31,8 @@ public class LekarProzor extends JFrame {
 	private JButton btnAdd = new JButton();
 	private JButton btnEdit = new JButton();
 	private JButton btnDelete = new JButton();
+	private JScrollPane scrollPane;
 
-	private DefaultTableModel tablemodel;
 	private JTable lekarTabela;
 
 	private DomZdravlja domZdravlja;
@@ -60,10 +60,18 @@ public class LekarProzor extends JFrame {
 		btnDelete.setIcon(deleteIcon);
 		mainToolbar.add(btnDelete);
 		add(mainToolbar, BorderLayout.NORTH);
+		lekarTabela = new JTable();
+		lekarTabela.setRowSelectionAllowed(true);
+		lekarTabela.setColumnSelectionAllowed(false);
+		lekarTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		lekarTabela.setDefaultEditor(Object.class, null);
+
+		scrollPane = new JScrollPane(lekarTabela);
+		add(scrollPane, BorderLayout.CENTER);
 
 	}
 
-	private void punjenjeLekarTabele() {
+	public void punjenjeLekarTabele() {
 		String[] zaglavlje = new String[] { "Ime", "Prezime", "JMBG", "Br. telefona", "Uloga", "Adresa",
 				"Korisnicko ime", "Lozinka", "Pol", "Plata", "Sluzba", "Specijalizacija" };
 
@@ -100,16 +108,8 @@ public class LekarProzor extends JFrame {
 				podaci[i][11] = lekar.getSpec();
 			}
 		}
-
-		tablemodel = new DefaultTableModel(podaci, zaglavlje);
-		lekarTabela = new JTable(tablemodel);
-		lekarTabela.setRowSelectionAllowed(true);
-		lekarTabela.setColumnSelectionAllowed(false);
-		lekarTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		lekarTabela.setDefaultEditor(Object.class, null);
-
-		JScrollPane scrollPane = new JScrollPane(lekarTabela);
-		add(scrollPane, BorderLayout.CENTER);
+		DefaultTableModel tablemodel = new DefaultTableModel(podaci, zaglavlje);
+		lekarTabela.setModel(tablemodel);
 	}
 
 	private void initActions() {
@@ -122,7 +122,7 @@ public class LekarProzor extends JFrame {
 				}
 					break;
 				case MED_SESTRA: {
-					LekarForma lf = new LekarForma(domZdravlja, lekar);
+					LekarForma lf = new LekarForma(LekarProzor.this, domZdravlja, lekar);
 					lf.setVisible(true);
 				}
 					break;
@@ -150,7 +150,7 @@ public class LekarProzor extends JFrame {
 						String korIme = model.getValueAt(red, 6).toString();
 						Lekar lekar = domZdravlja.getLekarDao().nadjiLekaraPoKorImenu(korIme);
 						if (lekar != null) {
-							LekarForma lf = new LekarForma(domZdravlja, lekar);
+							LekarForma lf = new LekarForma(LekarProzor.this, domZdravlja, lekar);
 							lf.setVisible(true);
 						} else {
 							JOptionPane.showMessageDialog(null, "Nije moguce pronaci odabranog lekara", "Greska",

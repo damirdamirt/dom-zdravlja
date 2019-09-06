@@ -16,6 +16,7 @@ import com.sun.scenario.animation.shared.InfiniteClipEnvelope;
 
 import dao.LekarDao;
 import domZdravlja.DomZdravlja;
+import gui.formeZaPrikaz.LekarProzor;
 import model.Lekar;
 import model.Pol;
 import model.Pregled;
@@ -50,11 +51,13 @@ public class LekarForma extends JFrame {
 	private JTextField txtSpecijalizacija = new JTextField(20);
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
-
+	
+	private LekarProzor lekarProzor;
 	private DomZdravlja domZdravlja;
 	private Lekar lekar;
 
-	public LekarForma(DomZdravlja domZdravlja, Lekar lekar) {
+	public LekarForma(LekarProzor lekarProzor, DomZdravlja domZdravlja, Lekar lekar) {
+		this.lekarProzor = lekarProzor;
 		this.domZdravlja = domZdravlja;
 		this.lekar = lekar;
 		if (this.lekar == null) {
@@ -122,6 +125,7 @@ public class LekarForma extends JFrame {
 		txtBrTelefona.setText(this.lekar.getBrTel());
 		txtAdresa.setText(this.lekar.getAdresa());
 		txtKorisnickoIme.setText(this.lekar.getKorIme());
+		txtKorisnickoIme.setEnabled(false);
 		pfLozinka.setText(this.lekar.getLozinka());
 		cbPol.setSelectedItem(this.lekar.getPol());
 		txtPlata.setText(String.valueOf(this.lekar.getPlata()));
@@ -133,8 +137,12 @@ public class LekarForma extends JFrame {
 		btnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (validacija() == true) {
-					UlogaKor uloga = domZdravlja.getLogovaniKorisnik().getUloga().LEKAR;
+				boolean isEdit = false;
+				if (lekar != null) {
+					isEdit = true;
+				}
+				if (validacija(isEdit) == true) {
+					UlogaKor uloga = UlogaKor.LEKAR;
 					String ime = txtIme.getText().trim();
 					String prezime = txtPrezime.getText().trim();
 					String jmbg = txtJMBG.getText().trim();
@@ -146,7 +154,7 @@ public class LekarForma extends JFrame {
 					double plata = Double.parseDouble(txtPlata.getText().trim());
 					Sluzba sluzba = (Sluzba) cbSluzba.getSelectedItem();
 					String spec = txtSpecijalizacija.getText().trim();
-					if (lekar == null) {
+					if (!isEdit) {
 						lekar = new Lekar(ime, prezime, jmbg, brTel, uloga, adresa, korIme, lozinka, pol, plata, sluzba,
 								spec);
 						domZdravlja.getLekarDao().upisiLekara(lekar);
@@ -166,6 +174,7 @@ public class LekarForma extends JFrame {
 					}
 					LekarForma.this.dispose();
 					LekarForma.this.setVisible(false);
+					LekarForma.this.lekarProzor.punjenjeLekarTabele();
 				}
 			}
 		});
@@ -178,7 +187,7 @@ public class LekarForma extends JFrame {
 		});
 	}
 
-	private boolean validacija() {
+	private boolean validacija(boolean isEdit) {
 		boolean ok = true;
 		String poruka = "Molimo popravite sledece greske u unosu:\n";
 
@@ -223,13 +232,20 @@ public class LekarForma extends JFrame {
 			poruka += "- Unesite specijalizaciju\n";
 			ok = false;
 		}
-		String korIme = txtKorisnickoIme.getText().trim();
-		if ((domZdravlja.getLekarDao())
-				.validacijaKorImenaLekar(korIme) == false) {
-			poruka += "- Korisnicko ime vec postoji, unesite drugo.";
-			ok = false;
+		if (!isEdit) {
+			String korIme = txtKorisnickoIme.getText().trim();
+			if ((domZdravlja.getLekarDao()).validacijaKorImenaLekar(korIme) == false) {
+				poruka += "- Korisnicko ime vec postoji, unesite drugo.";
+				ok = false;
+			} else if ((domZdravlja.getPacijentDao()).validacijaKorImenaPacijent(korIme) == false) {
+				poruka += "- Korisnicko ime vec postoji, unesite drugo.";
+				ok = false;
+			} else if ((domZdravlja.getSestraDao()).validacijaKorImenaSestra(korIme) == false) {
+				poruka += "- Korisnicko ime vec postoji, unesite drugo.";
+				ok = false;
+			}
 		}
-		
+
 		if (ok == false) {
 			JOptionPane.showMessageDialog(null, poruka, "Neispravni podaci", JOptionPane.WARNING_MESSAGE);
 		}

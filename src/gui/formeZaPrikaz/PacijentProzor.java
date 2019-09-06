@@ -34,7 +34,6 @@ public class PacijentProzor extends JFrame {
 	private JButton btnEdit = new JButton();
 	private JButton btnDelete = new JButton();
 
-	private DefaultTableModel tableModel;
 	private JTable pacijentTabela;
 
 	private DomZdravlja domZdravlja;
@@ -63,10 +62,17 @@ public class PacijentProzor extends JFrame {
 		btnDelete.setIcon(deleteIcon);
 		mainToolBar.add(btnDelete);
 		add(mainToolBar, BorderLayout.NORTH);
+		pacijentTabela = new JTable();
+		pacijentTabela.setRowSelectionAllowed(true);
+		pacijentTabela.setColumnSelectionAllowed(false);
+		pacijentTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		pacijentTabela.setDefaultEditor(Object.class, null);
+		JScrollPane scrollPane = new JScrollPane(pacijentTabela);
+		add(scrollPane, BorderLayout.CENTER);
 
 	}
 
-	private void PunjenjePacijentTabele() {
+	public void PunjenjePacijentTabele() {
 		String[] zaglavlje = new String[] { "Ime", "Prezime", "JMBG", "Br telefona", "Uloga", "Adresa",
 				"Korisnicko ime", "Lozinka", "Pol", "Izabrani lekar", "Knjizica - ID", "Knjizica-datum isteka",
 				"Knjizica-kat.osiguranja" };
@@ -111,15 +117,8 @@ public class PacijentProzor extends JFrame {
 			}
 		}
 
-		tableModel = new DefaultTableModel(podaci, zaglavlje);
-		pacijentTabela = new JTable(tableModel);
-		pacijentTabela.setRowSelectionAllowed(true);
-		pacijentTabela.setColumnSelectionAllowed(false);
-		pacijentTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		pacijentTabela.setDefaultEditor(Object.class, null);
-
-		JScrollPane scrollPane = new JScrollPane(pacijentTabela);
-		add(scrollPane, BorderLayout.CENTER);
+		DefaultTableModel tableModel = new DefaultTableModel(podaci, zaglavlje);
+		pacijentTabela.setModel(tableModel);
 	}
 
 	private void initActions() {
@@ -133,7 +132,7 @@ public class PacijentProzor extends JFrame {
 				}
 					break;
 				case MED_SESTRA: {
-					PacijentForma pf = new PacijentForma(domZdravlja, pacijent);
+					PacijentForma pf = new PacijentForma(PacijentProzor.this, domZdravlja, pacijent);
 					pf.setVisible(true);
 				}
 					break;
@@ -161,7 +160,7 @@ public class PacijentProzor extends JFrame {
 						String korIme = model.getValueAt(red, 6).toString();
 						Pacijent pacijent = domZdravlja.getPacijentDao().nadjiPacPoKorImenu(korIme);
 						if (pacijent != null) {
-							PacijentForma pf = new PacijentForma(domZdravlja, pacijent);
+							PacijentForma pf = new PacijentForma(PacijentProzor.this, domZdravlja, pacijent);
 							pf.setVisible(true);
 						} else {
 							JOptionPane.showMessageDialog(null, "Nije moguce pronaci odabranog lekara", "Greska",

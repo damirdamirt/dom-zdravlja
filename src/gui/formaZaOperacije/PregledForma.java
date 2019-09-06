@@ -253,7 +253,7 @@ public class PregledForma extends JFrame {
 		if (lekar != null && termin != null) {
 			ArrayList<Pregled> pregledi = domZdravlja.getPregledDao().nadjiPregledePoKorImenuLekara(lekar.getKorIme());
 			for (Pregled pregled : pregledi) {
-				if (termin.getDay() == pregled.getTermin().getDay()
+				if (pregled.getTermin() != null && termin.getDay() == pregled.getTermin().getDay()
 						&& termin.getMonth() == pregled.getTermin().getMonth()
 						&& termin.getYear() == pregled.getTermin().getYear()
 						&& termin.getHours() == pregled.getTermin().getHours()

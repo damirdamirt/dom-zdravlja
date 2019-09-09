@@ -148,6 +148,10 @@ public class PregledForma extends JFrame {
 		} else {
 			switch (domZdravlja.getLogovaniKorisnik().getUloga()) {
 			case LEKAR: {
+				if (pregled.getStatus() == StatusPreg.OTKAZAN || pregled.getStatus() == StatusPreg.ZAVRSEN) {
+					cbStatus.addItem(pregled.getStatus());
+					cbStatus.setEnabled(false);
+				}
 				cbStatus.addItem(StatusPreg.OTKAZAN);
 				cbStatus.addItem(StatusPreg.ZAVRSEN);
 			}
@@ -155,6 +159,7 @@ public class PregledForma extends JFrame {
 			case PACIJENT: {
 				if (this.pregled != null && this.pregled.getStatus() != StatusPreg.ZAVRSEN
 						&& this.pregled.getStatus() != StatusPreg.OTKAZAN) {
+					cbStatus.addItem(StatusPreg.ZAKAZAN);
 					cbStatus.addItem(StatusPreg.OTKAZAN);
 				} else if (this.pregled != null) {
 					cbStatus.addItem(this.pregled.getStatus());
@@ -163,7 +168,12 @@ public class PregledForma extends JFrame {
 				break;
 			}
 			case MED_SESTRA: {
-				cbStatus.addItem(StatusPreg.ZAKAZAN);
+				if (pregled.getStatus() == StatusPreg.ZAVRSEN || pregled.getStatus() == StatusPreg.OTKAZAN) {
+					cbStatus.addItem(pregled.getStatus());
+					cbStatus.setEnabled(false);
+				} else {
+					cbStatus.addItem(StatusPreg.ZAKAZAN);
+				}
 			}
 				break;
 			}
@@ -236,7 +246,6 @@ public class PregledForma extends JFrame {
 	}
 
 	private boolean validacijaVremenaLekara() {
-		// Validacija da vremena lekara
 		Lekar lekar = (Lekar) cbLekar.getSelectedItem();
 		DateFormat formater = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 		Date termin = null;
@@ -258,7 +267,7 @@ public class PregledForma extends JFrame {
 						&& termin.getYear() == pregled.getTermin().getYear()
 						&& termin.getHours() == pregled.getTermin().getHours()
 						&& termin.getMinutes() <= (pregled.getTermin().getMinutes() + 15)) {
-					
+
 					return false;
 				}
 			}

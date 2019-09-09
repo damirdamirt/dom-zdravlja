@@ -1,2 +1,4 @@
-Ivana|Mihajlovic|75488990451|0639898767|LEKAR|Milutina Milankovica|ivancis|ikiiki|ZENSKI|90000.0|SLU_ZDR_ZAS_RAD|Pulmolog
+Ivana|Mihajlovic|75488990451|0639898767|LEKAR|Milutina Milankovica|ivancis|ikiiki|ZENSKI|90000.0|STOM_SLUZBA|Pulmolog
 Danijel|Vukomanovic|2356235663256536|0617878788|LEKAR|Balzakova 5|dane|dane|MUSKI|100000.0|SLUZBA_OP_MED|Pedijatar
+Biljana|Ilic|63473762476267|0623478378|LEKAR|Hajduk Veljkova 9|biki|biki|ZENSKI|90000.0|STOM_SLUZBA|Pulmolog
+Milos|Nikolic|82837837482738|061347838|LEKAR|Sutjeska10|misko|misko|MUSKI|85000.0|SLU_ZDR_ZAS_RAD|Urolog

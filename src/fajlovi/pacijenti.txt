@@ -1,2 +1,4 @@
-Marija|Blagotic|232554576767|065343126|PACIJENT|Omladinskih Brigada 5|maca|maca|MUSKI|dane|5b
-Milan|Arandjelovic|2112321123113|0628989765|PACIJENT|Dunavska 6|miki|miki|MUSKI|dane|34b
+Danijela|Davidovic|6536754621464|06378677838|PACIJENT|Stevana Mokranjca 9|daca|daca|MUSKI|dane|34m
+Dijana|Markovic|7467263476346|0613755578|PACIJENT|Ustanicka 1|diki|diki|ZENSKI|biki|9r
+Goran|Todorovic|36416878187873|0628734838|PACIJENT|Miljacka 2|gogi|gogi|MUSKI|ivancis|4j
+Miodrag|Mihajlovic|87176376126237|0618578893|PACIJENT|Jug Bogdana 19|miki|miki|MUSKI|biki|12m

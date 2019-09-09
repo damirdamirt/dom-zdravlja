@@ -1,2 +1,5 @@
-8dfd3c0c-b238-4b81-9b37-31d500da13d1|maca|dane|01.10.2109 09:45|9c|Bolovi u grudima|ZAKAZAN|
-5de6a00b-3e8a-4657-9f7e-f5b71d3d07a8|maca|ivancis|09.01.2019 09:10|90r|Zubobolja|ZAKAZAN|
+b18f0f9b-dca4-4894-9de1-c245497dfc3e|daca|biki|10.10.2020 10:50|42m|Zubobolja|ZAKAZAN|
+6f95c118-d378-4caf-9ec5-befc2925a52d|diki|ivancis|01.02.2019 08:30|9q|Bolovi u grudima|ZAVRSEN|
+141054af-9c05-4df1-9dc9-49caf273f2d2|gogi|ivancis|01.02.2019 08:50|1p|Gusenje|OTKAZAN|
+4897ee8b-874a-465e-a411-7c3541b15f0b|daca|dane|01.09.2020 12:30|67t|Mucnina|ZAKAZAN|
+41d6df45-42e2-408c-9b1a-94e869d03887|daca|dane|04.09.2019 12:45|8h|Alergija|ZAVRSEN|

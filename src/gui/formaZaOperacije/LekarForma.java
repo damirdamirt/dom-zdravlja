@@ -80,7 +80,7 @@ public class LekarForma extends JFrame {
 		setLayout(layout);
 
 		if (this.lekar != null) {
-			PopuniPolja();
+			popuniPolja();
 		}
 
 		cbSluzba.addItem(Sluzba.STOM_SLUZBA);
@@ -118,7 +118,7 @@ public class LekarForma extends JFrame {
 
 	}
 
-	private void PopuniPolja() {
+	private void popuniPolja() {
 		txtIme.setText(this.lekar.getIme());
 		txtPrezime.setText(this.lekar.getPrezime());
 		txtJMBG.setText(this.lekar.getJmbg());

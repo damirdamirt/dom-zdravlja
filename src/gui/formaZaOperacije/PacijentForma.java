@@ -199,7 +199,7 @@ public class PacijentForma extends JFrame {
 					}
 					PacijentForma.this.dispose();
 					PacijentForma.this.setVisible(false);
-					PacijentForma.this.pacijentProzor.PunjenjePacijentTabele();
+					PacijentForma.this.pacijentProzor.punjenjePacijentTabele();
 				}
 			}
 		});

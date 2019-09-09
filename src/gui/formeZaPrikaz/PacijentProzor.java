@@ -46,7 +46,7 @@ public class PacijentProzor extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		initGUI();
-		PunjenjePacijentTabele();
+		punjenjePacijentTabele();
 		initActions();
 
 	}
@@ -72,7 +72,7 @@ public class PacijentProzor extends JFrame {
 
 	}
 
-	public void PunjenjePacijentTabele() {
+	public void punjenjePacijentTabele() {
 		String[] zaglavlje = new String[] { "Ime", "Prezime", "JMBG", "Br telefona", "Uloga", "Adresa",
 				"Korisnicko ime", "Lozinka", "Pol", "Izabrani lekar", "Knjizica - ID", "Knjizica-datum isteka",
 				"Knjizica-kat.osiguranja" };

@@ -74,7 +74,7 @@ public class SestraForma extends JFrame {
 		setLayout(layout);
 
 		if (this.sestra != null) {
-			PopuniPolja();
+			popuniPolja();
 		}
 
 		add(lblUloga);
@@ -105,7 +105,7 @@ public class SestraForma extends JFrame {
 
 	}
 
-	private void PopuniPolja() {
+	private void popuniPolja() {
 		txtIme.setText(this.sestra.getIme());
 		txtPrezime.setText(this.sestra.getPrezime());
 		txtJMBG.setText(this.sestra.getJmbg());

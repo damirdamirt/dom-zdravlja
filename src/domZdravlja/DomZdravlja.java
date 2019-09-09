@@ -6,7 +6,6 @@ import dao.LekarDao;
 import dao.MedSestraDao;
 import dao.PacijentDao;
 import dao.PregledDao;
-import dao.RacunDao;
 import dao.ZdrKnjizicaDao;
 import model.Korisnik;
 import model.Lekar;
@@ -16,7 +15,6 @@ public class DomZdravlja {
 	private LekarDao lekarDao;
 	private MedSestraDao sestraDao;
 	private PacijentDao pacijentDao;
-	private RacunDao racunDao;
 	private ZdrKnjizicaDao knjizicaDao;
 	private PregledDao pregledDao;
 
@@ -27,7 +25,6 @@ public class DomZdravlja {
 		lekarDao = new LekarDao();
 		sestraDao = new MedSestraDao();
 		pacijentDao = new PacijentDao();
-		racunDao = new RacunDao();
 		knjizicaDao = new ZdrKnjizicaDao();
 		pregledDao = new PregledDao();
 
@@ -65,10 +62,6 @@ public class DomZdravlja {
 
 	public PacijentDao getPacijentDao() {
 		return pacijentDao;
-	}
-
-	public RacunDao getRacunDao() {
-		return racunDao;
 	}
 
 	public ZdrKnjizicaDao getKnjizicaDao() {

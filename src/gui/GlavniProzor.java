@@ -12,6 +12,7 @@ import domZdravlja.DomZdravlja;
 import gui.formeZaPrikaz.LekarProzor;
 import gui.formeZaPrikaz.PacijentProzor;
 import gui.formeZaPrikaz.PregledProzor;
+import gui.formeZaPrikaz.RacunZaPregledProzor;
 import gui.formeZaPrikaz.SestraProzor;
 
 public class GlavniProzor extends JFrame {
@@ -23,12 +24,14 @@ public class GlavniProzor extends JFrame {
 	private JMenuItem sestraItem;
 	private JMenu pregledMenu;
 	private JMenuItem prikaziPregledItem;
+	private JMenuItem racunItem;
 
 	private DomZdravlja domZdravlja;
 
 	public GlavniProzor(DomZdravlja domZdravlja) {
 		this.domZdravlja = domZdravlja;
-		setTitle("Korisnik - " + domZdravlja.getLogovaniKorisnik().getIme() + " " + domZdravlja.getLogovaniKorisnik().getPrezime());
+		setTitle("Korisnik - " + domZdravlja.getLogovaniKorisnik().getIme() + " "
+				+ domZdravlja.getLogovaniKorisnik().getPrezime());
 		setSize(500, 500);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -45,18 +48,20 @@ public class GlavniProzor extends JFrame {
 		this.sestraItem = new JMenuItem("Sestra");
 		this.pregledMenu = new JMenu("Pregledi");
 		this.prikaziPregledItem = new JMenuItem("Prikazi preglede");
-		
+		this.racunItem = new JMenuItem("Racun Pregleda");
+
 		switch (domZdravlja.getLogovaniKorisnik().getUloga()) {
-			case MED_SESTRA:
-				this.korisnikMenu.add(lekaritem);
-				this.korisnikMenu.add(pacijentItem);
-				this.korisnikMenu.add(sestraItem);
-				break;
-			case PACIJENT:
-				this.korisnikMenu.add(pacijentItem);
-				break;
-			case LEKAR:
-				this.korisnikMenu.add(lekaritem);
+		case MED_SESTRA:
+			this.korisnikMenu.add(lekaritem);
+			this.korisnikMenu.add(pacijentItem);
+			this.korisnikMenu.add(sestraItem);
+			this.pregledMenu.add(racunItem);
+			break;
+		case PACIJENT:
+			this.korisnikMenu.add(pacijentItem);
+			break;
+		case LEKAR:
+			this.korisnikMenu.add(lekaritem);
 		}
 
 		this.pregledMenu.add(prikaziPregledItem);
@@ -95,6 +100,13 @@ public class GlavniProzor extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				PregledProzor ppr = new PregledProzor(domZdravlja);
 				ppr.setVisible(true);
+			}
+		});
+		racunItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RacunZaPregledProzor rzpr = new RacunZaPregledProzor(domZdravlja);
+				rzpr.setVisible(true);
 			}
 		});
 	}

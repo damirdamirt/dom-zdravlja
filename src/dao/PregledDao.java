@@ -68,6 +68,17 @@ public class PregledDao {
 
 	}
 
+	public ArrayList<Pregled> ucitajZavrsenePreglede() {
+		ArrayList<Pregled> pregledi = ucitajPreglede();
+		ArrayList<Pregled> zavrseniPregledi = new ArrayList<Pregled>();
+		for (Pregled pregled : pregledi) {
+			if (pregled.getStatus() == StatusPreg.ZAVRSEN) {
+				zavrseniPregledi.add(pregled);
+			}
+		}
+		return zavrseniPregledi;
+	}
+
 	public void upisiPregled(Pregled preg) {
 		try {
 			File file = new File("src/fajlovi/pregledi.txt");

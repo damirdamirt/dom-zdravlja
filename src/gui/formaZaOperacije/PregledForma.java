@@ -258,6 +258,7 @@ public class PregledForma extends JFrame {
 						&& termin.getYear() == pregled.getTermin().getYear()
 						&& termin.getHours() == pregled.getTermin().getHours()
 						&& termin.getMinutes() <= (pregled.getTermin().getMinutes() + 15)) {
+					
 					return false;
 				}
 			}
